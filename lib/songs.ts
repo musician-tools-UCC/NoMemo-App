@@ -128,20 +128,20 @@ export const SONGS: Song[] = [
       {
         name: 'Falso Puente (1/3)',
         measuresCount: 4,
-        chords: 'C  |  Em  |  F  |  G  |  Am  |  F  |  G',
-        lyrics: 'Y aunque la altura me juegue una mala pasada,',
+        chords: 'C  |  Em  |  F  |  G  |  Am',
+        lyrics: 'Y aunque la altura me juegue una mala pasada,\nen esta nave ya no me importa más nada.',
       },
       {
         name: 'Falso Puente (2/3)',
         measuresCount: 4,
-        chords: 'C  |  Em  |  F  |  G  |  Am  |  F  |  G',
-        lyrics: 'en esta nave ya no me importa más nada.',
+        chords: 'F  |  G',
+        lyrics: 'Porque solo pienso en ti, si',
       },
       {
         name: 'Falso Puente (3/3)',
         measuresCount: 4,
-        chords: 'C  |  Em  |  F  |  G  |  Am  |  F  |  G',
-        lyrics: 'Porque solo pienso en ti,\nsí, solo pienso en ti.',
+        chords: 'F  |  G',
+        lyrics: 'solo pienso en ti.',
       },
       {
         name: 'Estribillo (1/6)',
@@ -200,7 +200,7 @@ export const SONGS: Song[] = [
         measuresCount: 4,
         chords: 'C#  |  C  |  Fm  |  A#',
         lyrics:
-          'Caminaba por las calles de mi ciudad\nCar al bar al que me acaban de invitar\nLas tarde me envolvía en su complicidad\nTan apurado que no podía ni pensar',
+          'Caminaba por las calles de mi ciudad\nCai al bar al que me acaban de invitar\nLas tarde me envolvía en su complicidad\nTan apurado que no podía ni pensar',
       },
       {
         name: 'Puente',
