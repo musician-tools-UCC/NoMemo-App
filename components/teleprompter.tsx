@@ -45,7 +45,14 @@ export function Teleprompter() {
     <main className="min-h-dvh w-full overflow-x-hidden bg-slate-950 text-white">
       {!m.ready && <AudioOverlay onEnable={m.enableAudio} />}
 
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 overflow-x-hidden px-4 py-6 sm:px-6 sm:py-8">
+      <div
+        className="mx-auto flex w-full max-w-4xl flex-col gap-4 overflow-x-hidden px-4 pb-6 sm:px-6 sm:pb-8"
+        style={{
+          paddingTop: 'max(1.5rem, calc(env(safe-area-inset-top) + 0.75rem))',
+          paddingLeft: 'max(1rem, env(safe-area-inset-left))',
+          paddingRight: 'max(1rem, env(safe-area-inset-right))',
+        }}
+      >
         {/* Setlist como menú desplegable + prev/next, arriba de todo */}
         <Setlist
           songs={SONGS}
@@ -72,7 +79,14 @@ export function Teleprompter() {
       </div>
 
       {/* Bloques fijos abajo: dos secciones visualmente separadas */}
-      <div className="sticky bottom-0 left-0 flex w-full flex-col gap-2 px-4 pb-4 sm:px-6 sm:pb-6">
+      <div
+        className="sticky bottom-0 left-0 flex w-full flex-col gap-2 px-4 sm:px-6"
+        style={{
+          paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
+          paddingLeft: 'max(1rem, env(safe-area-inset-left))',
+          paddingRight: 'max(1rem, env(safe-area-inset-right))',
+        }}
+      >
         {/* Bloque 1: Play / Pause / Stop + volumen */}
         <div className="rounded-3xl border border-slate-800 bg-slate-900/95 p-4 backdrop-blur sm:p-5">
           <TransportControls
@@ -118,4 +132,4 @@ export function Teleprompter() {
       </div>
     </main>
   )
-} 
+}
