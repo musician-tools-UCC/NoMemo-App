@@ -68,6 +68,8 @@ export function Teleprompter() {
             section={activeSection}
             measureInSection={m.measureInSection}
             isPlaying={m.isPlaying}
+            beatsPerMeasure={song.timeSignature}
+            activeBeat={m.beatInMeasure}
           />
         )}
 

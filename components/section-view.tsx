@@ -14,14 +14,54 @@ function lyricsFontClass(lyrics: string): string {
   return 'text-xl sm:text-3xl leading-normal'
 }
 
+function MiniBeatIndicator({
+  beatsPerMeasure,
+  activeBeat,
+  isPlaying,
+}: {
+  beatsPerMeasure: number
+  activeBeat: number
+  isPlaying: boolean
+}) {
+  return (
+    <div
+      className="flex items-center gap-1"
+      role="img"
+      aria-label={`Beat ${activeBeat >= 0 ? activeBeat + 1 : 0} of ${beatsPerMeasure}`}
+    >
+      {Array.from({ length: beatsPerMeasure }).map((_, i) => {
+        const isActive = isPlaying && i === activeBeat
+        const isDownbeat = i === 0
+        return (
+          <span
+            key={i}
+            className={cn(
+              'h-1.5 w-1.5 rounded-full transition-all duration-75',
+              isActive
+                ? isDownbeat
+                  ? 'scale-125 bg-emerald-300'
+                  : 'scale-110 bg-yellow-300'
+                : 'bg-slate-700',
+            )}
+          />
+        )
+      })}
+    </div>
+  )
+}
+
 export function ActiveSection({
   section,
   measureInSection,
   isPlaying,
+  beatsPerMeasure,
+  activeBeat,
 }: {
   section: Section
   measureInSection: number
   isPlaying: boolean
+  beatsPerMeasure: number
+  activeBeat: number
 }) {
   const progress = isPlaying
     ? Math.min((measureInSection / section.measuresCount) * 100, 100)
@@ -33,9 +73,16 @@ export function ActiveSection({
         <span className="rounded-full bg-emerald-400/15 px-4 py-1.5 text-sm font-bold uppercase tracking-widest text-emerald-300 sm:text-base">
           {section.name}
         </span>
-        <span className="font-mono text-sm text-slate-400 sm:text-base">
-          Measure {isPlaying ? measureInSection : 0} / {section.measuresCount}
-        </span>
+        <div className="flex items-center gap-2.5">
+          <MiniBeatIndicator
+            beatsPerMeasure={beatsPerMeasure}
+            activeBeat={activeBeat}
+            isPlaying={isPlaying}
+          />
+          <span className="font-mono text-sm text-slate-400 sm:text-base">
+            Measure {isPlaying ? measureInSection : 0} / {section.measuresCount}
+          </span>
+        </div>
       </div>
 
       {/* Progress bar */}
