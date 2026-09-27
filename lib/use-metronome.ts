@@ -16,6 +16,8 @@ export interface MetronomeState {
   volume: number
   muted: boolean
   soundId: SoundId
+  bluetoothMode: boolean
+  latencyMs: number
   enableAudio: () => Promise<void>
   play: () => void
   pause: () => void
@@ -25,6 +27,8 @@ export interface MetronomeState {
   toggleMute: () => void
   setSound: (id: SoundId) => void
   seek: (globalMeasureIndex: number) => void
+  setBluetoothMode: (enabled: boolean) => void
+  setLatencyMs: (ms: number) => void
 }
 
 interface Position {
@@ -68,6 +72,8 @@ export function useMetronome(song: Song): MetronomeState {
   const [volume, setVolumeState] = useState(0.8)
   const [muted, setMuted] = useState(false)
   const [soundId, setSoundIdState] = useState<SoundId>('classic')
+  const [bluetoothMode, setBluetoothModeState] = useState(false)
+  const [latencyMs, setLatencyMsState] = useState(150)
 
   const toneRef = useRef<typeof ToneType | null>(null)
   const engineRef = useRef<ClickEngine | null>(null)
@@ -78,6 +84,8 @@ export function useMetronome(song: Song): MetronomeState {
   const songRef = useRef(song)
   const mutedRef = useRef(muted)
   const soundIdRef = useRef(soundId)
+  const bluetoothModeRef = useRef(bluetoothMode)
+  const latencyMsRef = useRef(latencyMs)
   useEffect(() => {
     songRef.current = song
   }, [song])
@@ -87,6 +95,12 @@ export function useMetronome(song: Song): MetronomeState {
   useEffect(() => {
     soundIdRef.current = soundId
   }, [soundId])
+  useEffect(() => {
+    bluetoothModeRef.current = bluetoothMode
+  }, [bluetoothMode])
+  useEffect(() => {
+    latencyMsRef.current = latencyMs
+  }, [latencyMs])
 
   const resetToStart = useCallback(() => {
     beatCountRef.current = 0
@@ -114,11 +128,12 @@ export function useMetronome(song: Song): MetronomeState {
       const loopBeats = total * bpb
       const globalBeat = beatCountRef.current
 
-      // Seguridad: si por algún motivo ya pasamos el final, no hacer nada más.
       if (globalBeat >= loopBeats) return
 
       const beat = globalBeat % bpb
 
+      // El clic de audio siempre suena en el tiempo exacto — el propio
+      // Bluetooth ya le suma su retraso natural al llegar a los in-ears.
       if (!mutedRef.current) {
         engineRef.current?.trigger(time, beat === 0)
       }
@@ -126,20 +141,26 @@ export function useMetronome(song: Song): MetronomeState {
       const pos = positionFromBeat(currentSong, globalBeat)
       const isLastBeat = globalBeat + 1 >= loopBeats
 
+      // La UI (letra, beat, compás) se retrasa a propósito si está activado
+      // el modo Bluetooth, para que coincida con lo que se escucha, no con
+      // lo que se toca en el instante exacto.
+      const visualOffset = bluetoothModeRef.current ? latencyMsRef.current / 1000 : 0
+
       Tone.getDraw().schedule(() => {
         setBeatInMeasure(pos.beatInMeasure)
         setSectionIndex(pos.sectionIndex)
         setMeasureInSection(pos.measureInSection)
         setCurrentMeasure(pos.measureIndex)
-      }, time)
+      }, time + visualOffset)
 
       beatCountRef.current = globalBeat + 1
 
-      // La canción llegó al final: pausar en vez de volver a loopear.
       if (isLastBeat) {
-        transport.pause()
-        resetToStart()
-        setIsPlaying(false)
+        Tone.getDraw().schedule(() => {
+          transport.pause()
+          resetToStart()
+          setIsPlaying(false)
+        }, time + visualOffset)
       }
     }, '4n')
 
@@ -160,6 +181,14 @@ export function useMetronome(song: Song): MetronomeState {
     engineRef.current?.dispose()
     engineRef.current = createClickEngine(Tone, id, volumeNode)
     setSoundIdState(id)
+  }, [])
+
+  const setBluetoothMode = useCallback((enabled: boolean) => {
+    setBluetoothModeState(enabled)
+  }, [])
+
+  const setLatencyMs = useCallback((ms: number) => {
+    setLatencyMsState(ms)
   }, [])
 
   const seek = useCallback((globalMeasureIndex: number) => {
@@ -262,6 +291,8 @@ export function useMetronome(song: Song): MetronomeState {
     volume,
     muted,
     soundId,
+    bluetoothMode,
+    latencyMs,
     enableAudio,
     play,
     pause,
@@ -271,5 +302,7 @@ export function useMetronome(song: Song): MetronomeState {
     toggleMute,
     setSound,
     seek,
+    setBluetoothMode,
+    setLatencyMs,
   }
 }

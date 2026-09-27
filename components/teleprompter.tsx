@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useMemo, useState } from 'react'
+import { Bluetooth } from 'lucide-react'
 import { SONGS, totalMeasures, type Song } from '@/lib/songs'
 import { useMetronome } from '@/lib/use-metronome'
 import { AudioOverlay } from './audio-overlay'
@@ -10,6 +11,7 @@ import { ActiveSection, UpcomingSection } from './section-view'
 import { Setlist } from './setlist'
 import { SoundSelector } from './sound-selector'
 import { SeekBar } from './seek-bar'
+import { cn } from '@/lib/utils'
 
 export function Teleprompter() {
   const [song, setSong] = useState<Song>(SONGS[0])
@@ -43,7 +45,15 @@ export function Teleprompter() {
 
   return (
     <main className="min-h-dvh w-full overflow-x-hidden bg-slate-950 text-white">
-      {!m.ready && <AudioOverlay onEnable={m.enableAudio} />}
+      {!m.ready && (
+        <AudioOverlay
+          onEnable={m.enableAudio}
+          bluetoothMode={m.bluetoothMode}
+          latencyMs={m.latencyMs}
+          onChangeBluetoothMode={m.setBluetoothMode}
+          onChangeLatency={m.setLatencyMs}
+        />
+      )}
 
       <div
         className="mx-auto flex w-full max-w-4xl flex-col gap-4 overflow-x-hidden px-4 pb-6 sm:px-6 sm:pb-8"
@@ -123,6 +133,49 @@ export function Teleprompter() {
           </div>
 
           <SoundSelector value={m.soundId} onChange={m.setSound} />
+
+          {/* Calibración de Bluetooth, accesible en cualquier momento (ej. durante el soundcheck) */}
+          <div className="flex flex-col gap-2 rounded-xl border border-slate-800 bg-slate-950/50 p-3">
+            <button
+              type="button"
+              onClick={() => m.setBluetoothMode(!m.bluetoothMode)}
+              className={cn(
+                'flex items-center justify-between gap-2 text-sm font-semibold transition-colors',
+                m.bluetoothMode ? 'text-emerald-300' : 'text-slate-400',
+              )}
+            >
+              <span className="flex items-center gap-2">
+                <Bluetooth className="h-4 w-4" aria-hidden="true" />
+                Modo Bluetooth
+              </span>
+              <span
+                className={cn(
+                  'flex h-6 w-11 items-center rounded-full px-0.5 transition-colors',
+                  m.bluetoothMode ? 'justify-end bg-emerald-400' : 'justify-start bg-slate-700',
+                )}
+              >
+                <span className="h-5 w-5 rounded-full bg-slate-950" />
+              </span>
+            </button>
+
+            {m.bluetoothMode && (
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span>Delay</span>
+                  <span className="font-mono text-emerald-300">{m.latencyMs} ms</span>
+                </div>
+                <input
+                  type="range"
+                  min={0}
+                  max={400}
+                  step={10}
+                  value={m.latencyMs}
+                  onChange={(e) => m.setLatencyMs(Number(e.target.value))}
+                  className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-emerald-400"
+                />
+              </div>
+            )}
+          </div>
 
           <SeekBar
             totalMeasures={songTotalMeasures}
