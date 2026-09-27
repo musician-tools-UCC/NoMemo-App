@@ -25,7 +25,7 @@ export const SONGS: Song[] = [
     sections: [
       {
         name: 'Preparación',
-        measuresCount: 1,
+        measuresCount: 4,
         chords: '',
         lyrics: '(instrumental)',
       },
@@ -197,7 +197,7 @@ export const SONGS: Song[] = [
     sections: [
       {
         name: 'Preparación',
-        measuresCount: 1,
+        measuresCount: 2,
         chords: '',
         lyrics: '(instrumental)',
       },
