@@ -73,7 +73,7 @@ export function useMetronome(song: Song): MetronomeState {
   const [muted, setMuted] = useState(false)
   const [soundId, setSoundIdState] = useState<SoundId>('classic')
   const [bluetoothMode, setBluetoothModeState] = useState(false)
-  const [latencyMs, setLatencyMsState] = useState(150)
+  const [latencyMs, setLatencyMsState] = useState(140)
 
   const toneRef = useRef<typeof ToneType | null>(null)
   const engineRef = useRef<ClickEngine | null>(null)
@@ -132,8 +132,6 @@ export function useMetronome(song: Song): MetronomeState {
 
       const beat = globalBeat % bpb
 
-      // El clic de audio siempre suena en el tiempo exacto — el propio
-      // Bluetooth ya le suma su retraso natural al llegar a los in-ears.
       if (!mutedRef.current) {
         engineRef.current?.trigger(time, beat === 0)
       }
@@ -141,9 +139,6 @@ export function useMetronome(song: Song): MetronomeState {
       const pos = positionFromBeat(currentSong, globalBeat)
       const isLastBeat = globalBeat + 1 >= loopBeats
 
-      // La UI (letra, beat, compás) se retrasa a propósito si está activado
-      // el modo Bluetooth, para que coincida con lo que se escucha, no con
-      // lo que se toca en el instante exacto.
       const visualOffset = bluetoothModeRef.current ? latencyMsRef.current / 1000 : 0
 
       Tone.getDraw().schedule(() => {
