@@ -210,20 +210,22 @@ export const SONGS: Song[] = [
       {
         name: 'Verso 1 (1/2)',
         measuresCount: 8,
-        chords: 'Em Bm Em C B7 F#m7 Em',
-        lyrics: 'Ya tengo casi treinta años...',
+        chords: 'Em  |  Bm  |  Em  |  C  |  B7  |  F#m7  |  Em',
+        lyrics:
+          'Ya tengo casi 30 años\nPor la noches no me quiero dormir\nVoy soñando despierto sin pestañar, escribiendo en la cocina',
       },
       {
         name: 'Verso 1 (2/2)',
         measuresCount: 8,
-        chords: 'Em Bm Em C B7 F#m7 Em',
-        lyrics: 'Aprendí a guardar bien los secretos...',
+        chords: 'Em  |  Bm  |  Em  |  C  |  B7  |  F#m7  |  Em',
+        lyrics:
+          'Aprendí a guardar bien los secretos\nNunca pido lo que no me dan\nVos sabes que aparezco sin avisar\nTraje flores de la huerta',
       },
       {
         name: 'Estribillo',
         measuresCount: 8,
-        chords: 'C G B7 Em C G B7 F#m7 Em',
-        lyrics: 'Yo estoy esperando...',
+        chords: 'C  |  G  |  B7  |  Em  |  C  |  G  |  B7  |  F#m7  |  Em',
+        lyrics: 'Yo estoy esperando\nEn la calle no hay porque reír\nYo estoy esperando\nY en la tele pare de sufrir',
       },
       {
         name: 'Interludio',
@@ -234,44 +236,47 @@ export const SONGS: Song[] = [
       {
         name: 'Verso 2 (1/2)',
         measuresCount: 8,
-        chords: 'Em Bm Em C B7 F#m7 Em',
-        lyrics: 'Ya volví de donde sopla el viento...',
+        chords: 'Em  |  Bm  |  Em  |  C  |  B7  |  F#m7  |  Em',
+        lyrics:
+          'Ya volví de donde sople el viento\nAl fin tengo un poco de calor\nYa mordí la banquina y me levanté\nEncontré agua en el desierto',
       },
       {
         name: 'Verso 2 (2/2)',
         measuresCount: 8,
-        chords: 'Em Bm Em C B7 F#m7 Em',
-        lyrics: 'Siento la lluvia que cae por el techo...',
+        chords: 'Em  |  Bm  |  Em  |  C  |  B7  |  F#m7  |  Em',
+        lyrics:
+          'Siento la lluvia que cae por el techo\nAlgunos perros que ladran por ahí\nUn recuerdo olvidado de Miramar\nY que nunca se termina',
       },
       {
         name: 'Estribillo',
         measuresCount: 8,
-        chords: 'C G B7 Em C G B7 F#m7 Em',
-        lyrics: 'Yo estoy esperando...',
+        chords: 'C  |  G  |  B7  |  Em  |  C  |  G  |  B7  |  F#m7  |  Em',
+        lyrics: 'Yo estoy esperando\nEn la calle no hay porque reír\nYo estoy esperando\nY en la tele pare de sufrir',
       },
       {
         name: 'Puente',
         measuresCount: 14,
-        chords: 'C G Bm Em C D# Bm B7 Em',
-        lyrics: 'No me cabe más nada en el pecho...',
+        chords: 'C  |  G  |  Bm  |  Em  |  C  |  D#  |  Bm  |  B7  |  Em',
+        lyrics: 'No me cabe más nada en el pecho\nNo me importa lo que diga la gilada\nY la mirada de todos los demás',
       },
       {
         name: 'Solo de Guitarra',
         measuresCount: 8,
-        chords: 'G Em',
-        lyrics: '(solo de guitarra)',
+        chords: 'G  |  Em',
+        lyrics: '(instrumental)',
       },
       {
         name: 'Estribillo Final',
         measuresCount: 16,
-        chords: 'C G B7 Em C G B7 F#m7 Em',
-        lyrics: 'Yo estoy esperando... (x2)',
+        chords: 'C  |  G  |  B7  |  Em  |  C  |  G  |  B7  |  F#m7  |  Em',
+        lyrics:
+          'Yo estoy esperando\nEn la calle no hay porque reír\nYo estoy esperando\nQue la tele pare de sufrir\nYo estoy esperando\nEn la calle no hay porque reír\nYo estoy esperando\nQue la tele pare de sufrir',
       },
       {
         name: 'Cierre',
         measuresCount: 4,
-        chords: 'B7 F#m7 Em B7 Em',
-        lyrics: 'En la calle no hay porque reír...',
+        chords: 'B7  |  F#m7  |  Em  |  B7  |  Em',
+        lyrics: 'En la calle no hay porque reír\nMira la tele pare de sufrir',
       },
     ],
   },
