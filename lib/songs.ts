@@ -500,41 +500,35 @@ export const SONGS: Song[] = [
         lyrics: '(instrumental)',
       },
       {
-        name: 'Coro Final (1/6)',
+        name: 'Coro Final (1/5)',
         measuresCount: 4,
         chords: 'Em Am',
         lyrics: '¡Y vuelvo a recorrer, vuelvo a recorrer!\nEsos pasajes que me hacen volver.',
       },
       {
-        name: 'Coro Final (2/6)',
+        name: 'Coro Final (2/5)',
         measuresCount: 4,
         chords: 'D G B7',
         lyrics: 'A la melodía de tu dulce voz,\nal dolor amargo de nuestro adiós.',
       },
       {
-        name: 'Coro Final (3/6)',
+        name: 'Coro Final (3/5)',
         measuresCount: 4,
         chords: 'C B7',
         lyrics: 'Esas letras que un día te canté,\nesas letras que tanto lloré...',
       },
       {
-        name: 'Coro Final (4/6)',
+        name: 'Coro Final (4/5)',
         measuresCount: 4,
         chords: 'Em G Am B7',
         lyrics: '¡Ay, cómo queman hoy!\n¡Ay, cómo queman hoy!',
       },
       {
-        name: 'Coro Final (5/6)',
-        measuresCount: 4,
+        name: 'Coro Final (5/5)',
+        measuresCount: 3,
         chords: 'Em G Am B7',
         lyrics: '¡Ay, cómo queman hoy!\n¡Ay, cómo queman hoy!',
-      },
-      {
-        name: 'Coro Final (6/6)',
-        measuresCount: 4,
-        chords: 'Em G Am B7',
-        lyrics: '(instrumental)',
-      },
+      }
     ],
   },
 
