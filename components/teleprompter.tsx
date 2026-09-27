@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { SONGS, totalMeasures, type Song } from '@/lib/songs'
 import { useMetronome } from '@/lib/use-metronome'
 import { AudioOverlay } from './audio-overlay'
@@ -29,69 +29,82 @@ export function Teleprompter() {
     })
   }, [song])
 
+  const goToOffset = useCallback(
+    (offset: number) => {
+      const currentIndex = SONGS.findIndex((s) => s.id === song.id)
+      const nextIndex = (currentIndex + offset + SONGS.length) % SONGS.length
+      setSong(SONGS[nextIndex])
+    },
+    [song],
+  )
+
+  const goPrev = useCallback(() => goToOffset(-1), [goToOffset])
+  const goNext = useCallback(() => goToOffset(1), [goToOffset])
+
   return (
     <main className="min-h-dvh bg-slate-950 text-white">
       {!m.ready && <AudioOverlay onEnable={m.enableAudio} />}
 
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 lg:flex-row lg:px-6 lg:py-8">
-        {/* Sidebar */}
-        <div className="lg:w-72 lg:shrink-0">
-          <Setlist songs={SONGS} activeSongId={song.id} onSelect={setSong} />
-        </div>
+      <div className="mx-auto flex max-w-4xl flex-col gap-4 px-4 py-6 sm:px-6 sm:py-8">
+        {/* Setlist como menú desplegable + prev/next, arriba de todo */}
+        <Setlist
+          songs={SONGS}
+          activeSongId={song.id}
+          onSelect={setSong}
+          onPrev={goPrev}
+          onNext={goNext}
+        />
 
-        {/* Main stage */}
-        <div className="flex flex-1 flex-col gap-6">
-          {/* Top block: Play primero, después título + indicador de beat, sonido y seek bar */}
-          <div className="flex flex-col gap-5 rounded-3xl border border-slate-800 bg-slate-900/80 p-5 backdrop-blur sm:p-6">
-            <TransportControls
-              isPlaying={m.isPlaying}
-              volume={m.volume}
-              muted={m.muted}
-              onPlay={m.play}
-              onPause={m.pause}
-              onStop={m.stop}
-              onRestart={m.restart}
-              onVolumeChange={m.setVolume}
-              onToggleMute={m.toggleMute}
-            />
+        {/* Letra activa — arriba, es lo principal que hay que leer */}
+        {activeSection && (
+          <ActiveSection
+            section={activeSection}
+            measureInSection={m.measureInSection}
+            isPlaying={m.isPlaying}
+          />
+        )}
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h1 className="text-2xl font-black tracking-tight sm:text-3xl">
-                  {song.title}
-                </h1>
-                <p className="text-sm text-slate-400">
-                  {song.artist} · {song.bpm} BPM · {song.timeSignature}/4
-                </p>
-              </div>
-              <BeatIndicator
-                beatsPerMeasure={song.timeSignature}
-                activeBeat={m.beatInMeasure}
-                isPlaying={m.isPlaying}
-              />
+        {/* Up Next — en el medio */}
+        <UpcomingSection section={nextSection} />
+
+        {/* Controles — abajo de todo: play, título + beat, sonido, seek bar */}
+        <div className="sticky bottom-0 flex flex-col gap-5 rounded-3xl border border-slate-800 bg-slate-900/90 p-5 backdrop-blur sm:p-6">
+          <TransportControls
+            isPlaying={m.isPlaying}
+            volume={m.volume}
+            muted={m.muted}
+            onPlay={m.play}
+            onPause={m.pause}
+            onStop={m.stop}
+            onRestart={m.restart}
+            onVolumeChange={m.setVolume}
+            onToggleMute={m.toggleMute}
+          />
+
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h1 className="text-xl font-black tracking-tight sm:text-2xl">
+                {song.title}
+              </h1>
+              <p className="text-sm text-slate-400">
+                {song.artist} · {song.bpm} BPM · {song.timeSignature}/4
+              </p>
             </div>
-
-            <SoundSelector value={m.soundId} onChange={m.setSound} />
-
-            <SeekBar
-              totalMeasures={songTotalMeasures}
-              currentMeasure={m.currentMeasure}
-              markers={sectionMarkers}
-              onSeek={m.seek}
+            <BeatIndicator
+              beatsPerMeasure={song.timeSignature}
+              activeBeat={m.beatInMeasure}
+              isPlaying={m.isPlaying}
             />
           </div>
 
-          {/* Active section */}
-          {activeSection && (
-            <ActiveSection
-              section={activeSection}
-              measureInSection={m.measureInSection}
-              isPlaying={m.isPlaying}
-            />
-          )}
+          <SoundSelector value={m.soundId} onChange={m.setSound} />
 
-          {/* Upcoming preview */}
-          <UpcomingSection section={nextSection} />
+          <SeekBar
+            totalMeasures={songTotalMeasures}
+            currentMeasure={m.currentMeasure}
+            markers={sectionMarkers}
+            onSeek={m.seek}
+          />
         </div>
       </div>
     </main>

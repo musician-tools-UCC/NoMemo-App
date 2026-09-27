@@ -7,6 +7,12 @@ export const metadata: Metadata = {
   description:
     'A dark-theme live performance teleprompter with a sample-accurate metronome and automatic section transitions for musicians.',
   generator: 'v0.app',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Teleprompter',
+  },
   icons: {
     icon: [
       {
@@ -29,6 +35,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: 'dark',
   themeColor: '#0f172a',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({
