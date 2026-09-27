@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type * as ToneType from 'tone'
 import type { Song } from './songs'
 import { totalMeasures } from './songs'
+import { createClickEngine, type ClickEngine, type SoundId } from './metronome-sounds'
 
 export interface MetronomeState {
   /** Whether the Web Audio context has been unlocked (Tone.start()). */
@@ -15,8 +16,11 @@ export interface MetronomeState {
   sectionIndex: number
   /** 1-based measure within the active section. */
   measureInSection: number
+  /** 0-based measure across the whole song (loops). */
+  currentMeasure: number
   volume: number
   muted: boolean
+  soundId: SoundId
   enableAudio: () => Promise<void>
   play: () => void
   pause: () => void
@@ -24,12 +28,17 @@ export interface MetronomeState {
   restart: () => void
   setVolume: (v: number) => void
   toggleMute: () => void
+  setSound: (id: SoundId) => void
+  /** Jump playback to a specific 0-based global measure. */
+  seek: (globalMeasureIndex: number) => void
 }
 
 interface Position {
   sectionIndex: number
   measureInSection: number
   beatInMeasure: number
+  /** 0-based measure across the whole song (looped). */
+  measureIndex: number
 }
 
 function positionFromBeat(song: Song, globalBeat: number): Position {
@@ -48,11 +57,12 @@ function positionFromBeat(song: Song, globalBeat: number): Position {
         sectionIndex: i,
         measureInSection: measureIndex - cursor + 1,
         beatInMeasure,
+        measureIndex,
       }
     }
     cursor += count
   }
-  return { sectionIndex: 0, measureInSection: 1, beatInMeasure }
+  return { sectionIndex: 0, measureInSection: 1, beatInMeasure, measureIndex: 0 }
 }
 
 export function useMetronome(song: Song): MetronomeState {
@@ -61,11 +71,13 @@ export function useMetronome(song: Song): MetronomeState {
   const [beatInMeasure, setBeatInMeasure] = useState(-1)
   const [sectionIndex, setSectionIndex] = useState(0)
   const [measureInSection, setMeasureInSection] = useState(1)
+  const [currentMeasure, setCurrentMeasure] = useState(0)
   const [volume, setVolumeState] = useState(0.8)
   const [muted, setMuted] = useState(false)
+  const [soundId, setSoundIdState] = useState<SoundId>('classic')
 
   const toneRef = useRef<typeof ToneType | null>(null)
-  const synthRef = useRef<ToneType.MembraneSynth | null>(null)
+  const engineRef = useRef<ClickEngine | null>(null)
   const volumeNodeRef = useRef<ToneType.Volume | null>(null)
   const eventIdRef = useRef<number | null>(null)
   const beatCountRef = useRef(0)
@@ -73,12 +85,16 @@ export function useMetronome(song: Song): MetronomeState {
   // Keep refs of reactive values the audio callback reads.
   const songRef = useRef(song)
   const mutedRef = useRef(muted)
+  const soundIdRef = useRef(soundId)
   useEffect(() => {
     songRef.current = song
   }, [song])
   useEffect(() => {
     mutedRef.current = muted
   }, [muted])
+  useEffect(() => {
+    soundIdRef.current = soundId
+  }, [soundId])
 
   const enableAudio = useCallback(async () => {
     if (toneRef.current) return
@@ -86,11 +102,7 @@ export function useMetronome(song: Song): MetronomeState {
     await Tone.start()
 
     const volumeNode = new Tone.Volume(Tone.gainToDb(0.8)).toDestination()
-    const synth = new Tone.MembraneSynth({
-      pitchDecay: 0.008,
-      octaves: 2,
-      envelope: { attack: 0.001, decay: 0.18, sustain: 0, release: 0.05 },
-    }).connect(volumeNode)
+    const engine = createClickEngine(Tone, soundIdRef.current, volumeNode)
 
     const transport = Tone.getTransport()
     transport.bpm.value = songRef.current.bpm
@@ -102,8 +114,7 @@ export function useMetronome(song: Song): MetronomeState {
       const beat = globalBeat % bpb
 
       if (!mutedRef.current) {
-        // High click on beat 1, low click on the rest.
-        synth.triggerAttackRelease(beat === 0 ? 'C5' : 'C4', '16n', time)
+        engineRef.current?.trigger(time, beat === 0)
       }
 
       const pos = positionFromBeat(currentSong, globalBeat)
@@ -111,16 +122,53 @@ export function useMetronome(song: Song): MetronomeState {
         setBeatInMeasure(pos.beatInMeasure)
         setSectionIndex(pos.sectionIndex)
         setMeasureInSection(pos.measureInSection)
+        setCurrentMeasure(pos.measureIndex)
       }, time)
 
       beatCountRef.current = globalBeat + 1
     }, '4n')
 
     toneRef.current = Tone
-    synthRef.current = synth
+    engineRef.current = engine
     volumeNodeRef.current = volumeNode
     eventIdRef.current = id
     setReady(true)
+  }, [])
+
+  // Cambiar de sonido en caliente: descarta el engine viejo y crea uno nuevo.
+  const setSound = useCallback((id: SoundId) => {
+    const Tone = toneRef.current
+    const volumeNode = volumeNodeRef.current
+    if (!Tone || !volumeNode) {
+      // Todavía no se inicializó el audio; solo guardamos la preferencia.
+      setSoundIdState(id)
+      return
+    }
+    engineRef.current?.dispose()
+    engineRef.current = createClickEngine(Tone, id, volumeNode)
+    setSoundIdState(id)
+  }, [])
+
+  // Saltar a un compás específico de la canción (scrubbing tipo streaming).
+  const seek = useCallback((globalMeasureIndex: number) => {
+    const Tone = toneRef.current
+    if (!Tone) return
+    const currentSong = songRef.current
+    const bpb = currentSong.timeSignature
+    const total = totalMeasures(currentSong)
+    const clamped = Math.max(0, Math.min(total - 1, Math.round(globalMeasureIndex)))
+    const targetBeat = clamped * bpb
+
+    beatCountRef.current = targetBeat
+
+    const transport = Tone.getTransport()
+    transport.position = `${clamped}:0:0`
+
+    const pos = positionFromBeat(currentSong, targetBeat)
+    setBeatInMeasure(pos.beatInMeasure)
+    setSectionIndex(pos.sectionIndex)
+    setMeasureInSection(pos.measureInSection)
+    setCurrentMeasure(pos.measureIndex)
   }, [])
 
   // Apply BPM when the song changes; reset transport position.
@@ -136,6 +184,7 @@ export function useMetronome(song: Song): MetronomeState {
     setBeatInMeasure(-1)
     setSectionIndex(0)
     setMeasureInSection(1)
+    setCurrentMeasure(0)
   }, [song])
 
   // Apply volume / mute changes to the audio graph.
@@ -172,6 +221,7 @@ export function useMetronome(song: Song): MetronomeState {
     setBeatInMeasure(-1)
     setSectionIndex(0)
     setMeasureInSection(1)
+    setCurrentMeasure(0)
   }, [])
 
   const restart = useCallback(() => {
@@ -184,6 +234,7 @@ export function useMetronome(song: Song): MetronomeState {
     setBeatInMeasure(-1)
     setSectionIndex(0)
     setMeasureInSection(1)
+    setCurrentMeasure(0)
     transport.start()
     setIsPlaying(true)
   }, [])
@@ -199,7 +250,7 @@ export function useMetronome(song: Song): MetronomeState {
       const transport = Tone.getTransport()
       if (eventIdRef.current !== null) transport.clear(eventIdRef.current)
       transport.stop()
-      synthRef.current?.dispose()
+      engineRef.current?.dispose()
       volumeNodeRef.current?.dispose()
     }
   }, [])
@@ -210,8 +261,10 @@ export function useMetronome(song: Song): MetronomeState {
     beatInMeasure,
     sectionIndex,
     measureInSection,
+    currentMeasure,
     volume,
     muted,
+    soundId,
     enableAudio,
     play,
     pause,
@@ -219,5 +272,7 @@ export function useMetronome(song: Song): MetronomeState {
     restart,
     setVolume,
     toggleMute,
+    setSound,
+    seek,
   }
 }

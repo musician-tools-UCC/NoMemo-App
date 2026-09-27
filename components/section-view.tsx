@@ -48,6 +48,11 @@ export function ActiveSection({
   )
 }
 
+function firstLyricLine(lyrics: string): string {
+  const firstLine = lyrics.split('\n')[0]?.trim() ?? ''
+  return firstLine || '(instrumental)'
+}
+
 export function UpcomingSection({ section }: { section: Section | null }) {
   return (
     <div
@@ -69,6 +74,9 @@ export function UpcomingSection({ section }: { section: Section | null }) {
           </span>
           <span className="truncate font-mono text-sm text-yellow-300/70">
             {section.chords}
+          </span>
+          <span className="truncate text-base font-medium text-slate-300">
+            {firstLyricLine(section.lyrics)}
           </span>
         </div>
       ) : (
