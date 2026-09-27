@@ -16,13 +16,19 @@ export interface Song {
 }
 
 export const SONGS: Song[] = [
-{
+  {
     id: '100k-kilometros',
     title: '100k Kilometros',
     artist: 'Un Cuento Chino',
     bpm: 165,
     timeSignature: 4,
     sections: [
+      {
+        name: 'Preparación',
+        measuresCount: 1,
+        chords: '',
+        lyrics: '(instrumental)',
+      },
       {
         name: 'Intro',
         measuresCount: 8,
@@ -190,8 +196,14 @@ export const SONGS: Song[] = [
     timeSignature: 4,
     sections: [
       {
+        name: 'Preparación',
+        measuresCount: 1,
+        chords: '',
+        lyrics: '(instrumental)',
+      },
+      {
         name: 'Intro',
-        measuresCount: 6,
+        measuresCount: 5,
         chords: 'C#  |  C  |  Fm  |  A#',
         lyrics: '(instrumental)',
       },
