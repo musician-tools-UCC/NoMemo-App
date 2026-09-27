@@ -189,6 +189,94 @@ export const SONGS: Song[] = [
   },
 
   {
+    id: '30-anos',
+    title: '30 Años',
+    artist: 'Conociendo Rusia',
+    bpm: 127,
+    timeSignature: 4,
+    sections: [
+      {
+        name: 'Preparación',
+        measuresCount: 2,
+        chords: '',
+        lyrics: '(instrumental)',
+      },
+      {
+        name: 'Intro',
+        measuresCount: 4,
+        chords: 'Em',
+        lyrics: '(instrumental)',
+      },
+      {
+        name: 'Verso 1 (1/2)',
+        measuresCount: 8,
+        chords: 'Em Bm Em C B7 F#m7 Em',
+        lyrics: 'Ya tengo casi treinta años...',
+      },
+      {
+        name: 'Verso 1 (2/2)',
+        measuresCount: 8,
+        chords: 'Em Bm Em C B7 F#m7 Em',
+        lyrics: 'Aprendí a guardar bien los secretos...',
+      },
+      {
+        name: 'Estribillo',
+        measuresCount: 8,
+        chords: 'C G B7 Em C G B7 F#m7 Em',
+        lyrics: 'Yo estoy esperando...',
+      },
+      {
+        name: 'Interludio',
+        measuresCount: 4,
+        chords: 'Em',
+        lyrics: '(instrumental)',
+      },
+      {
+        name: 'Verso 2 (1/2)',
+        measuresCount: 8,
+        chords: 'Em Bm Em C B7 F#m7 Em',
+        lyrics: 'Ya volví de donde sopla el viento...',
+      },
+      {
+        name: 'Verso 2 (2/2)',
+        measuresCount: 8,
+        chords: 'Em Bm Em C B7 F#m7 Em',
+        lyrics: 'Siento la lluvia que cae por el techo...',
+      },
+      {
+        name: 'Estribillo',
+        measuresCount: 8,
+        chords: 'C G B7 Em C G B7 F#m7 Em',
+        lyrics: 'Yo estoy esperando...',
+      },
+      {
+        name: 'Puente',
+        measuresCount: 14,
+        chords: 'C G Bm Em C D# Bm B7 Em',
+        lyrics: 'No me cabe más nada en el pecho...',
+      },
+      {
+        name: 'Solo de Guitarra',
+        measuresCount: 8,
+        chords: 'G Em',
+        lyrics: '(solo de guitarra)',
+      },
+      {
+        name: 'Estribillo Final',
+        measuresCount: 16,
+        chords: 'C G B7 Em C G B7 F#m7 Em',
+        lyrics: 'Yo estoy esperando... (x2)',
+      },
+      {
+        name: 'Cierre',
+        measuresCount: 4,
+        chords: 'B7 F#m7 Em B7 Em',
+        lyrics: 'En la calle no hay porque reír...',
+      },
+    ],
+  },
+
+  {
     id: 'mujer-estrella',
     title: 'Mujer Estrella',
     artist: 'Un Cuento Chino',
