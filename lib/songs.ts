@@ -345,6 +345,12 @@ export const SONGS: Song[] = [
         chords: 'B7 F#m7 Em B7 Em',
         lyrics: 'En la calle no hay porque reír\nMira la tele pare de sufrir',
       },
+      {
+        name: 'Outro',
+        measuresCount: 4,
+        chords: 'Em G',
+        lyrics: '(instrumental)',
+      },
     ],
   },
 
