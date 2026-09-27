@@ -42,10 +42,10 @@ export function Teleprompter() {
   const goNext = useCallback(() => goToOffset(1), [goToOffset])
 
   return (
-    <main className="min-h-dvh bg-slate-950 text-white">
+    <main className="min-h-dvh w-full overflow-x-hidden bg-slate-950 text-white">
       {!m.ready && <AudioOverlay onEnable={m.enableAudio} />}
 
-      <div className="mx-auto flex max-w-4xl flex-col gap-4 px-4 py-6 sm:px-6 sm:py-8">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 overflow-x-hidden px-4 py-6 sm:px-6 sm:py-8">
         {/* Setlist como menú desplegable + prev/next, arriba de todo */}
         <Setlist
           songs={SONGS}
@@ -67,8 +67,14 @@ export function Teleprompter() {
         {/* Up Next — en el medio */}
         <UpcomingSection section={nextSection} />
 
-        {/* Controles — abajo de todo: play, título + beat, sonido, seek bar */}
-        <div className="sticky bottom-0 flex flex-col gap-5 rounded-3xl border border-slate-800 bg-slate-900/90 p-5 backdrop-blur sm:p-6">
+        {/* Espaciador para que la letra no quede tapada por los bloques fijos de abajo */}
+        <div className="h-2" />
+      </div>
+
+      {/* Bloques fijos abajo: dos secciones visualmente separadas */}
+      <div className="sticky bottom-0 left-0 flex w-full flex-col gap-2 px-4 pb-4 sm:px-6 sm:pb-6">
+        {/* Bloque 1: Play / Pause / Stop + volumen */}
+        <div className="rounded-3xl border border-slate-800 bg-slate-900/95 p-4 backdrop-blur sm:p-5">
           <TransportControls
             isPlaying={m.isPlaying}
             volume={m.volume}
@@ -80,13 +86,16 @@ export function Teleprompter() {
             onVolumeChange={m.setVolume}
             onToggleMute={m.toggleMute}
           />
+        </div>
 
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h1 className="text-xl font-black tracking-tight sm:text-2xl">
+        {/* Bloque 2: título + indicador de beat + sonido + seek bar */}
+        <div className="flex flex-col gap-4 rounded-3xl border border-slate-800 bg-slate-900/95 p-4 backdrop-blur sm:p-5">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <h1 className="truncate text-lg font-black tracking-tight sm:text-xl">
                 {song.title}
               </h1>
-              <p className="text-sm text-slate-400">
+              <p className="truncate text-xs text-slate-400">
                 {song.artist} · {song.bpm} BPM · {song.timeSignature}/4
               </p>
             </div>
@@ -109,4 +118,4 @@ export function Teleprompter() {
       </div>
     </main>
   )
-}
+} 
