@@ -203,7 +203,7 @@ export const SONGS: Song[] = [
       },
       {
         name: 'Intro',
-        measuresCount: 5,
+        measuresCount: 4,
         chords: 'C#  |  C  |  Fm  |  A#',
         lyrics: '(instrumental)',
       },
