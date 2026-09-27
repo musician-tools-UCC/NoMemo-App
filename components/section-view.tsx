@@ -3,6 +3,17 @@
 import type { Section } from '@/lib/songs'
 import { cn } from '@/lib/utils'
 
+// Altura fija del bloque de letra — nunca cambia entre secciones cortas o largas.
+const LYRICS_BOX_HEIGHT = 'h-[280px] sm:h-[340px]'
+
+function lyricsFontClass(lyrics: string): string {
+  const length = lyrics.length
+  if (length <= 60) return 'text-4xl sm:text-6xl leading-snug'
+  if (length <= 120) return 'text-3xl sm:text-5xl leading-snug'
+  if (length <= 200) return 'text-2xl sm:text-4xl leading-normal'
+  return 'text-xl sm:text-3xl leading-normal'
+}
+
 export function ActiveSection({
   section,
   measureInSection,
@@ -40,10 +51,17 @@ export function ActiveSection({
         {section.chords}
       </pre>
 
-      {/* Lyrics */}
-      <p className="whitespace-pre-wrap text-3xl font-semibold leading-snug text-white sm:text-5xl sm:leading-tight">
-        {section.lyrics}
-      </p>
+      {/* Lyrics — altura fija, la fuente se adapta al largo del texto */}
+      <div className={cn(LYRICS_BOX_HEIGHT, 'flex items-center overflow-hidden')}>
+        <p
+          className={cn(
+            'w-full whitespace-pre-wrap font-semibold text-white',
+            lyricsFontClass(section.lyrics),
+          )}
+        >
+          {section.lyrics}
+        </p>
+      </div>
     </div>
   )
 }

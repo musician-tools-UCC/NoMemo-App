@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { ChevronDown, ChevronLeft, ChevronRight, Music } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Song } from '@/lib/songs'
 import { cn } from '@/lib/utils'
 
@@ -51,18 +51,15 @@ export function Setlist({ songs, activeSongId, onSelect, onPrev, onNext }: Setli
           aria-haspopup="listbox"
           className="flex w-full items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-3 text-left transition-colors hover:border-slate-700"
         >
-          <span className="flex items-center gap-2 overflow-hidden">
-            <Music className="h-4 w-4 shrink-0 text-emerald-300" aria-hidden="true" />
-            <span className="flex flex-col overflow-hidden">
-              <span className="truncate text-base font-bold text-white">
-                {activeSong?.title ?? 'Select a song'}
-              </span>
-              {activeSong && (
-                <span className="truncate text-xs text-slate-500">
-                  {activeIndex + 1}/{songs.length} · {activeSong.artist} · {activeSong.bpm} BPM
-                </span>
-              )}
+          <span className="flex flex-col overflow-hidden">
+            <span className="truncate text-base font-bold text-white">
+              {activeSong?.title ?? 'Select a song'}
             </span>
+            {activeSong && (
+              <span className="truncate text-xs text-slate-500">
+                {activeIndex + 1}/{songs.length} · {activeSong.artist} · {activeSong.bpm} BPM
+              </span>
+            )}
           </span>
           <ChevronDown
             className={cn(
