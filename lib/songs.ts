@@ -532,6 +532,15 @@ export const SONGS: Song[] = [
     ],
   },
 
+  {
+    id: 'que-somos',
+    title: 'Que Somos',
+    artist: 'Un Cuento Chino',
+    bpm: 128,
+    timeSignature: 4,
+    sections: []
+  },
+
     {
     id: 'cuchillo-guantanamera',
     title: 'Cuchillo Guantanamera',
