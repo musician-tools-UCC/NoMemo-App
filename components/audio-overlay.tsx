@@ -11,6 +11,30 @@ interface AudioOverlayProps {
   onChangeLatency: (ms: number) => void
 }
 
+function testRawBeep() {
+  try {
+    const AudioContextClass =
+      window.AudioContext || (window as any).webkitAudioContext
+    const ctx = new AudioContextClass()
+    console.log('[TEST] AudioContext state al crear:', ctx.state)
+    ctx.resume().then(() => {
+      console.log('[TEST] AudioContext state despues de resume:', ctx.state)
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.type = 'sine'
+      osc.frequency.value = 880
+      gain.gain.setValueAtTime(0.8, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5)
+      osc.connect(gain).connect(ctx.destination)
+      osc.start()
+      osc.stop(ctx.currentTime + 0.5)
+      console.log('[TEST] Beep crudo disparado, deberia sonar 0.5s')
+    })
+  } catch (err) {
+    console.error('[TEST] Error al crear AudioContext:', err)
+  }
+}
+
 export function AudioOverlay({
   onEnable,
   bluetoothMode,
@@ -29,7 +53,6 @@ export function AudioOverlay({
         </p>
       </div>
 
-      {/* Selector de modo de conexión */}
       <div className="flex w-full max-w-sm flex-col gap-3">
         <span className="text-center text-xs font-bold uppercase tracking-widest text-slate-500">
           ¿Cómo vas a conectar el audio?
@@ -99,6 +122,15 @@ export function AudioOverlay({
       <p className="text-sm text-slate-500">
         Required for iOS / mobile Web Audio playback
       </p>
+
+      {/* Botón de diagnóstico temporal — lo sacamos una vez resuelto el problema */}
+      <button
+        type="button"
+        onClick={testRawBeep}
+        className="rounded-xl border border-slate-700 px-4 py-2 text-sm font-semibold text-slate-400 transition-colors hover:border-slate-600 hover:text-slate-300"
+      >
+        🔧 Test: Beep crudo (sin Tone.js)
+      </button>
     </div>
   )
 }
