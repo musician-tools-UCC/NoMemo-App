@@ -532,14 +532,108 @@ export const SONGS: Song[] = [
     ],
   },
 
-  {
-    id: 'que-somos',
-    title: 'Que Somos',
-    artist: 'Un Cuento Chino',
-    bpm: 128,
-    timeSignature: 4,
-    sections: []
-  },
+ {
+  id: 'que-somos',
+  title: 'Que Somos',
+  artist: 'Un Cuento Chino',
+  bpm: 96,
+  timeSignature: 4,
+  sections: [
+    {
+      name: 'Preparación',
+      measuresCount: 2,
+      chords: '',
+      lyrics: '(silencio)',
+    },
+    {
+      name: 'Intro',
+      measuresCount: 8,
+      chords: 'Dm7 Am7 Csus4 / Dm7 Am7 G#m Gm7 C7',
+      lyrics: '(instrumental)',
+    },
+    {
+      name: 'Verso 1 (1/2)',
+      measuresCount: 8,
+      chords: 'Dm7 Am7 C7 Dm7 Am7 G#m Gm7 C7 Dm7',
+      lyrics:
+        'Dime para vos quién soy\nUn chiste mal contado y ahora\nVolando pasando las horas\nContigo soñando drogado voy',
+    },
+    {
+      name: 'Verso 1 (2/2)',
+      measuresCount: 8,
+      chords: 'Am7 Gm7 C7 Dm7 Am7 Gm7 C7',
+      lyrics:
+        'Quisiera ver cuánto tiempo me queda\nPara descubrir mi corazón\nEstá dolido, arrepentido\nSolo quiero volver a sentirte otra vez',
+    },
+    {
+      name: 'Pre-Coro',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: '(transición)',
+    },
+    {
+      name: 'Estribillo (1/2)',
+      measuresCount: 8,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7 Am7 G#m Gm7 C7 Fmaj7',
+      lyrics:
+        'Y ahora decime qué somos los dos\nInfinitas noches buscandote, perdiendo la voz',
+    },
+    {
+      name: 'Estribillo (2/2)',
+      measuresCount: 8,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
+      lyrics:
+        'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada\nDecime qué somos los dos...',
+    },
+    {
+      name: 'Solo de Guitarra',
+      measuresCount: 8,
+      chords: 'Eb7 Dm7 Am7 Dm7 Am7 G#m Gm7 C7',
+      lyrics: '(instrumental)',
+    },
+    {
+      name: 'Verso 2 (1/2)',
+      measuresCount: 4,
+      chords: 'Dm7 Em7 Am7 BbMaj7',
+      lyrics:
+        'Puede que en la noche yo te sienta\nQue sea todo como una tormenta\nNo sé si vos sos todo lo que me atormenta\nO si es quedarme solo hasta que llegue a la meta',
+    },
+    {
+      name: 'Verso 2 (2/2)',
+      measuresCount: 4,
+      chords: 'Dm7 Am7 G#m Gm7 C7',
+      lyrics:
+        'Qué triste de pensar que todo va a pasar\nQué triste de pensar que nada va a durar\nAl fin entendí qué es la felicidad\nUn solo momento, no la eternidad',
+    },
+    {
+      name: 'Puente',
+      measuresCount: 8,
+      chords: 'Dm7 Am7 G#m Gm7 C7 Dm7 Am7 E7',
+      lyrics:
+        'Perdóname, te juro que\nQuisiera ver todo lo que está mal de mí\nExtrañame, abrazame\nY besame, mi amor',
+    },
+    {
+      name: 'Estribillo Final (1/2)',
+      measuresCount: 8,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7 Am7 G#m Gm7 C7 Fmaj7',
+      lyrics:
+        'Y ahora decime qué somos los dos\nInfinitas noches buscandote, perdiendo la voz',
+    },
+    {
+      name: 'Estribillo Final (2/2)',
+      measuresCount: 8,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
+      lyrics:
+        'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada\nDecime qué somos los dos...',
+    },
+    {
+      name: 'Solo Final',
+      measuresCount: 12,
+      chords: 'Dm7 Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: '(instrumental)',
+    },
+  ],
+},
 
     {
     id: 'cuchillo-guantanamera',
