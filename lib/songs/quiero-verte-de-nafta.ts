@@ -2,7 +2,7 @@ import type { Song } from './types'
 
 export const song: Song = {
   id: 'quiero-verte-de-nafta',
-  title: 'Quiero Verte de Nafta',
+  title: 'Quiero Verte',
   bpm: 112,
   timeSignature: 4,
   sections: [
@@ -76,37 +76,37 @@ export const song: Song = {
       name: 'Estribillo (2/2)',
       measuresCount: 4,
       chords: '',
-      lyrics: 'Yo no sé qué querés de mí \n Yo sé que quiero verte, te quiero ver otra vez \n No, no, porque no puedo más',
+      lyrics: 'Yo no sé qué querés de mí \n Yo sé que quiero verte, te quiero ver otra vez \n oh no',
     },
     {
       name: 'Puente / Quiebre',
-      measuresCount: 4,
+      measuresCount: 16,
       chords: '',
-      lyrics: '',
+      lyrics: 'Esto no estaba para nada en mis planes',
     },
     {
-      name: 'Estribillo Doble (1/4)',
+      name: 'Estribillo (1/4)',
       measuresCount: 4,
       chords: '',
-      lyrics: '',
+      lyrics: 'Decime quién me manda a mí \n Si yo estaba tan tranquilo solo',
     },
     {
-      name: 'Estribillo Doble (2/4)',
+      name: 'Estribillo (2/4)',
       measuresCount: 4,
       chords: '',
-      lyrics: '',
+      lyrics: 'Yo no sé qué querés de mí \n Yo sé que quiero verte, te quiero ver otra vez',
     },
     {
       name: 'Estribillo Doble (3/4)',
       measuresCount: 4,
       chords: '',
-      lyrics: '',
+      lyrics: 'Decime quién me manda a mí \n Si yo estaba tan tranquilo solo',
     },
     {
       name: 'Estribillo Doble (4/4)',
       measuresCount: 4,
       chords: '',
-      lyrics: '',
+      lyrics: 'Yo no sé qué querés de mí \n Yo sé que quiero verte, te quiero ver otra vez ',
     },
     {
       name: 'Outro / Final',
