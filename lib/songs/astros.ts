@@ -51,7 +51,7 @@ export const song: Song = {
     },
     {
       name: 'Interludio',
-      measuresCount: 4,
+      measuresCount: 8,
       chords: 'Am C G F',
       lyrics: '(instrumental)',
     },
@@ -73,9 +73,17 @@ export const song: Song = {
       chords: 'Am C G F E',
       lyrics: 'Bailaré, bailarás, bailará otra vez\n Que los astros te van a ver \n Que un buen trago no viene mal \n Cuando pega la vida con tanta sed',
     },
+
+    {
+      name: 'Estribillo 2',
+      measuresCount: 8,
+      chords: 'Am C G F E',
+      lyrics: 'Bailaré, bailarás, bailará otra vez\n Que los astros te van a ver \n Que un buen trago no viene mal \n Cuando pega la vida con tanta sed',
+    },
+
     {
       name: 'Solo de Guitarra',
-      measuresCount: 8,
+      measuresCount: 16,
       chords: 'Am C G F',
       lyrics: '(solo de guitarra)',
     },
