@@ -7,7 +7,7 @@ import { useMetronome } from '@/lib/use-metronome'
 import { AudioOverlay } from './audio-overlay'
 import { BeatIndicator } from './beat-indicator'
 import { TransportControls } from './transport-controls'
-import { ActiveSection, UpcomingSection } from './section-view'
+import { ActiveSection } from './section-view'
 import { Setlist } from './setlist'
 import { SoundSelector } from './sound-selector'
 import { SeekBar } from './seek-bar'
@@ -63,7 +63,7 @@ export function Teleprompter() {
           paddingRight: 'max(1rem, env(safe-area-inset-right))',
         }}
       >
-        {/* Setlist como menú desplegable + prev/next, arriba de todo */}
+        {/* Setlist como menú desplegable + prev/next */}
         <Setlist
           songs={SONGS}
           activeSongId={song.id}
@@ -72,10 +72,11 @@ export function Teleprompter() {
           onNext={goNext}
         />
 
-        {/* Letra activa — arriba, es lo principal que hay que leer */}
+        {/* Letra activa + vista previa transparente de acordes y letra siguiente */}
         {activeSection && (
           <ActiveSection
             section={activeSection}
+            nextSection={nextSection}
             measureInSection={m.measureInSection}
             isPlaying={m.isPlaying}
             beatsPerMeasure={song.timeSignature}
@@ -83,14 +84,11 @@ export function Teleprompter() {
           />
         )}
 
-        {/* Up Next — en el medio */}
-        <UpcomingSection section={nextSection} />
-
-        {/* Espaciador para que la letra no quede tapada por los bloques fijos de abajo */}
+        {/* Espaciador */}
         <div className="h-2" />
       </div>
 
-      {/* Bloques fijos abajo: dos secciones visualmente separadas */}
+      {/* Bloques fijos abajo */}
       <div
         className="sticky bottom-0 left-0 flex w-full flex-col gap-2 px-4 sm:px-6"
         style={{
@@ -134,7 +132,7 @@ export function Teleprompter() {
 
           <SoundSelector value={m.soundId} onChange={m.setSound} />
 
-          {/* Calibración de Bluetooth, accesible en cualquier momento (ej. durante el soundcheck) */}
+          {/* Calibración Bluetooth */}
           <div className="flex flex-col gap-2 rounded-xl border border-slate-800 bg-slate-950/50 p-3">
             <button
               type="button"
