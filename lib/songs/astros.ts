@@ -71,7 +71,7 @@ export const song: Song = {
       name: 'Estribillo 2',
       measuresCount: 8,
       chords: 'Am C G F E',
-      lyrics: 'Bailaré, bailarás, bailará otra vez...',
+      lyrics: 'Bailaré, bailarás, bailará otra vez\n Que los astros te van a ver \n Que un buen trago no viene mal \n Cuando pega la vida con tanta sed',
     },
     {
       name: 'Solo de Guitarra',
@@ -80,10 +80,10 @@ export const song: Song = {
       lyrics: '(solo de guitarra)',
     },
     {
-      name: 'Estribillo Final',
-      measuresCount: 8,
+      name: 'Estribillo Final x2',
+      measuresCount: 16,
       chords: 'Am C G F E',
-      lyrics: 'Bailaré, bailarás, bailará otra vez...',
+      lyrics: 'Bailaré, bailarás, bailará otra vez\n Que los astros te van a ver \n Que un buen trago no viene mal \n Cuando pega la vida con tanta sed',
     },
     {
       name: 'Outro / Cierre',
