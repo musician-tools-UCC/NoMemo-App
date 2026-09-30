@@ -4,7 +4,7 @@ export const song: Song = {
   id: 'astros',
   title: 'Astros',
   artist: 'Ciro y los Persas',
-  bpm: 148,
+  bpm: 150,
   timeSignature: 4,
   sections: [
     {
