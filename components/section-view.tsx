@@ -131,7 +131,7 @@ export function ActiveSection({
               )}
               {upcomingLine && (
                 <p className="w-full truncate font-semibold text-white/50 text-lg sm:text-2xl">
-                  {upcomingLine}
+                  {upcomingLine} 
                 </p>
               )}
             </div>
