@@ -34,13 +34,13 @@ export const song: Song = {
     },
     {
       name: 'Estribillo (1/2)',
-      measuresCount: 16,
+      measuresCount: 8,
       chords: 'Em C D Em D G Am B7 C Am B7',
       lyrics:'Poco a poco fuimos volviéndonos locos\nY ese vapor de nuestro amor ',
     },
     {
       name: 'Estribillo (2/2)',
-      measuresCount: 8,
+      measuresCount: 12,
       chords: 'Em C D Em D G Am B7 C Am B7',
       lyrics:'nos embriagó con su licor\nY culpa al carnaval interminable nos hizo confundir, irresponsables',
     },
@@ -59,13 +59,13 @@ export const song: Song = {
 
     {
       name: 'Estribillo (1/2)',
-      measuresCount: 16,
+      measuresCount: 8,
       chords: 'Em C D Em D G Am B7 C Am B7',
       lyrics:'Poco a poco fuimos volviéndonos locos\nY ese vapor de nuestro amor ',
     },
     {
       name: 'Estribillo (2/2)',
-      measuresCount: 8,
+      measuresCount: 12,
       chords: 'Em C D Em D G Am B7 C Am B7',
       lyrics:'nos embriagó con su licor\nY culpa al carnaval interminable nos hizo confundir, irresponsables',
     },
@@ -79,13 +79,13 @@ export const song: Song = {
     
     {
       name: 'Estribillo (1/2)',
-      measuresCount: 16,
+      measuresCount: 8,
       chords: 'Em C D Em D G Am B7 C Am B7',
       lyrics:'Poco a poco fuimos volviéndonos locos\nY ese vapor de nuestro amor ',
     },
     {
       name: 'Estribillo (2/2)',
-      measuresCount: 8,
+      measuresCount: 12,
       chords: 'Em C D Em D G Am B7 C Am B7',
       lyrics:'nos embriagó con su licor\nY culpa al carnaval interminable nos hizo confundir, irresponsables',
     },
