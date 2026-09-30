@@ -532,144 +532,124 @@ export const SONGS: Song[] = [
     ],
   },
 
- {
-  id: 'que-somos',
-  title: 'Que Somos',
-  artist: 'Un Cuento Chino',
-  bpm: 96,
+  {
+  id: 'quiero-verte-de-nafta',
+  title: 'Quiero Verte de Nafta',
+  bpm: 112,
   timeSignature: 4,
   sections: [
     {
       name: 'Preparación',
-      measuresCount: 4,
+      measuresCount: 2,
       chords: '',
       lyrics: '(silencio)',
     },
     {
       name: 'Intro',
       measuresCount: 8,
-      chords: 'Dm7 Am7 G#m Gm7 C7',
+      chords: '',
       lyrics: '(instrumental)',
     },
     {
-      name: 'Verso 1 (1/4)',
+      name: 'Verso 1 (1/2)',
       measuresCount: 4,
-      chords: 'Dm7 Am7 Gm7 C7',
-      lyrics: 'Dime para vos quién soy\nUn chiste mal contado y...',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Verso 1 (2/4)',
+      name: 'Verso 1 (2/2)',
       measuresCount: 4,
-      chords: 'Dm7 Am7 Gm7 C7',
-      lyrics: 'Ahora Volando pasando las horas\nContigo soñando drogado voy',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Verso 1 (3/4)',
+      name: 'Estribillo (1/2)',
       measuresCount: 4,
-      chords: 'Dm7 Am7 Gm7 C7',
-      lyrics: 'Quisiera ver cuánto tiempo me queda\nPara descubrir mi corazón',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Verso 1 (4/4)',
+      name: 'Estribillo (2/2)',
       measuresCount: 4,
-      chords: 'Dm7 Am7 Gm7 C7',
-      lyrics: 'Está dolido, arrepentido\nSolo quiero volver a sentirte otra vez',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Pre-Coro',
-      measuresCount: 6,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7',
-      lyrics: '(transición)',
-    },
-    {
-      name: 'Estribillo (1/4)',
+      name: 'Post-Estribillo',
       measuresCount: 4,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7',
-      lyrics: 'Y ahora decime qué somos los dos',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Estribillo (2/4)',
+      name: 'Re-Intro / Interludio',
       measuresCount: 4,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7',
-      lyrics: 'Infinitas noches buscandote, perdiendo la voz',
-    },
-    {
-      name: 'Estribillo (3/4)',
-      measuresCount: 4,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm',
-      lyrics: 'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada',
-    },
-    {
-      name: 'Estribillo (4/4)',
-      measuresCount: 4,
-      chords: 'Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
-      lyrics: 'Decime qué somos los dos...',
-    },
-    {
-      name: 'Solo de Guitarra',
-      measuresCount: 8,
-      chords: 'Eb7 Dm7 Am7 Dm7 Am7 G#m Gm7 C7',
+      chords: '',
       lyrics: '(instrumental)',
     },
     {
       name: 'Verso 2 (1/2)',
       measuresCount: 4,
-      chords: 'Dm7 Em7 Am7 BbMaj7',
-      lyrics:
-        'Puede que en la noche yo te sienta\nQue sea todo como una tormenta\nNo sé si vos sos todo lo que me atormenta\nO si es quedarme solo hasta que llegue a la meta',
+      chords: '',
+      lyrics: '',
     },
     {
       name: 'Verso 2 (2/2)',
       measuresCount: 4,
-      chords: 'Dm7 Am7 G#m Gm7 C7',
-      lyrics:
-        'Qué triste de pensar que todo va a pasar\nQué triste de pensar que nada va a durar\nAl fin entendí qué es la felicidad\nUn solo momento, no la eternidad',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Puente (1/2)',
+      name: 'Estribillo 2 (1/2)',
       measuresCount: 4,
-      chords: 'Dm7 Am7 G#m Gm7',
-      lyrics: 'Perdóname, te juro que\nQuisiera ver todo lo que está mal de mí',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Puente (2/2)',
+      name: 'Estribillo 2 (2/2)',
       measuresCount: 4,
-      chords: 'Dm7 Am7 E7',
-      lyrics: 'Extrañame, abrazame\nY besame, mi amor',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Estribillo Final (1/4)',
+      name: 'Puente / Quiebre',
       measuresCount: 4,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7',
-      lyrics: 'Y ahora decime qué somos los dos',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Estribillo Final (2/4)',
+      name: 'Estribillo Doble (1/4)',
       measuresCount: 4,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7',
-      lyrics: 'Infinitas noches buscandote, perdiendo la voz',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Estribillo Final (3/4)',
+      name: 'Estribillo Doble (2/4)',
       measuresCount: 4,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm',
-      lyrics: 'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Estribillo Final (4/4)',
+      name: 'Estribillo Doble (3/4)',
       measuresCount: 4,
-      chords: 'Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
-      lyrics: 'Decime qué somos los dos...',
+      chords: '',
+      lyrics: '',
     },
     {
-      name: 'Solo Final',
+      name: 'Estribillo Doble (4/4)',
+      measuresCount: 4,
+      chords: '',
+      lyrics: '',
+    },
+    {
+      name: 'Outro / Final',
       measuresCount: 12,
-      chords: 'Dm7 Am7 G#m Gm7 C7 Fmaj7',
+      chords: '',
       lyrics: '(instrumental)',
     },
   ],
 },
 
+ 
     {
     id: 'cuchillo-guantanamera',
     title: 'Cuchillo Guantanamera',
@@ -825,6 +805,145 @@ export const SONGS: Song[] = [
   },
 
   {
+  id: 'que-somos',
+  title: 'Que Somos',
+  artist: 'Un Cuento Chino',
+  bpm: 96,
+  timeSignature: 4,
+  sections: [
+    {
+      name: 'Preparación',
+      measuresCount: 4,
+      chords: '',
+      lyrics: '(silencio)',
+    },
+    {
+      name: 'Intro',
+      measuresCount: 8,
+      chords: 'Dm7 Am7 G#m Gm7 C7',
+      lyrics: '(instrumental)',
+    },
+    {
+      name: 'Verso 1 (1/4)',
+      measuresCount: 4,
+      chords: 'Dm7 Am7 Gm7 C7',
+      lyrics: 'Dime para vos quién soy\nUn chiste mal contado y...',
+    },
+    {
+      name: 'Verso 1 (2/4)',
+      measuresCount: 4,
+      chords: 'Dm7 Am7 Gm7 C7',
+      lyrics: 'Ahora Volando pasando las horas\nContigo soñando drogado voy',
+    },
+    {
+      name: 'Verso 1 (3/4)',
+      measuresCount: 4,
+      chords: 'Dm7 Am7 Gm7 C7',
+      lyrics: 'Quisiera ver cuánto tiempo me queda\nPara descubrir mi corazón',
+    },
+    {
+      name: 'Verso 1 (4/4)',
+      measuresCount: 4,
+      chords: 'Dm7 Am7 Gm7 C7',
+      lyrics: 'Está dolido, arrepentido\nSolo quiero volver a sentirte otra vez',
+    },
+    {
+      name: 'Pre-Coro',
+      measuresCount: 6,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: '(transición)',
+    },
+    {
+      name: 'Estribillo (1/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: 'Y ahora decime qué somos los dos',
+    },
+    {
+      name: 'Estribillo (2/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: 'Infinitas noches buscandote, perdiendo la voz',
+    },
+    {
+      name: 'Estribillo (3/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm',
+      lyrics: 'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada',
+    },
+    {
+      name: 'Estribillo (4/4)',
+      measuresCount: 4,
+      chords: 'Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
+      lyrics: 'Decime qué somos los dos...',
+    },
+    {
+      name: 'Solo de Guitarra',
+      measuresCount: 8,
+      chords: 'Eb7 Dm7 Am7 Dm7 Am7 G#m Gm7 C7',
+      lyrics: '(instrumental)',
+    },
+    {
+      name: 'Verso 2 (1/2)',
+      measuresCount: 4,
+      chords: 'Dm7 Em7 Am7 BbMaj7',
+      lyrics:
+        'Puede que en la noche yo te sienta\nQue sea todo como una tormenta\nNo sé si vos sos todo lo que me atormenta\nO si es quedarme solo hasta que llegue a la meta',
+    },
+    {
+      name: 'Verso 2 (2/2)',
+      measuresCount: 4,
+      chords: 'Dm7 Am7 G#m Gm7 C7',
+      lyrics:
+        'Qué triste de pensar que todo va a pasar\nQué triste de pensar que nada va a durar\nAl fin entendí qué es la felicidad\nUn solo momento, no la eternidad',
+    },
+    {
+      name: 'Puente (1/2)',
+      measuresCount: 4,
+      chords: 'Dm7 Am7 G#m Gm7',
+      lyrics: 'Perdóname, te juro que\nQuisiera ver todo lo que está mal de mí',
+    },
+    {
+      name: 'Puente (2/2)',
+      measuresCount: 4,
+      chords: 'Dm7 Am7 E7',
+      lyrics: 'Extrañame, abrazame\nY besame, mi amor',
+    },
+    {
+      name: 'Estribillo Final (1/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: 'Y ahora decime qué somos los dos',
+    },
+    {
+      name: 'Estribillo Final (2/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: 'Infinitas noches buscandote, perdiendo la voz',
+    },
+    {
+      name: 'Estribillo Final (3/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm',
+      lyrics: 'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada',
+    },
+    {
+      name: 'Estribillo Final (4/4)',
+      measuresCount: 4,
+      chords: 'Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
+      lyrics: 'Decime qué somos los dos...',
+    },
+    {
+      name: 'Solo Final',
+      measuresCount: 12,
+      chords: 'Dm7 Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: '(instrumental)',
+    },
+  ],
+},
+
+
+  {
     id: 'astros',
     title: 'Astros',
     artist: 'Ciro y los Persas',
@@ -905,6 +1024,164 @@ export const SONGS: Song[] = [
       },
     ],
   },
+
+ {
+  id: 'instante-sagrado',
+  title: 'Instante Sagrado',
+  artist: 'Un Cuento Chino',
+  bpm: 77,
+  timeSignature: 4,
+  sections: [
+    {
+      name: 'Preparación',
+      measuresCount: 2,
+      chords: '',
+      lyrics: '(silencio)',
+    },
+    {
+      name: 'Intro',
+      measuresCount: 4,
+      chords: 'F A Dm C Bb',
+      lyrics: '(instrumental)',
+    },
+    {
+      name: 'Verso 1',
+      measuresCount: 8,
+      chords: 'F A Dm C Bbm / F A Dm C Bbm / F A Dm C Bbm',
+      lyrics:
+        'El reloj no detiene su marcha apurada,\nesta noche no puede quedar terminada.\nSi te quise de menos y causa lamento,\nhoy te entrego mi vida en el último aliento.',
+    },
+    {
+      name: 'Puente 1',
+      measuresCount: 4,
+      chords: 'F A Dm C Bb',
+      lyrics:
+        'Quédate hoy conmigo, no cruces la puerta,\nque la vida sin ti es una casa desierta.',
+    },
+    {
+      name: 'Estribillo 1',
+      measuresCount: 8,
+      chords: 'F A Dm D# F A# A#m / F Am Dm C A# A#',
+      lyrics:
+        'Que el destino detenga este instante sagrado,\nque no muera el amor que tenemos guardado.\nTodavía no llega el perfecto final,\nno apaguemos la luz de este amor inmortal.',
+    },
+    {
+      name: 'Verso 2',
+      measuresCount: 8,
+      chords: 'F A Dm C B / F A Dm C B / F A Dm C Bm',
+      lyrics:
+        'Si lo estás pensando, dilo sin demora,\nque el silencio lastima y los ojos te lloran.\nTú bien sabes que el alma se queda vacía,\nsi silenciamos de golpe nuestra melodía.',
+    },
+    {
+      name: 'Puente 2',
+      measuresCount: 4,
+      chords: 'F A Dm C Bb',
+      lyrics:
+        'No nos dejes perdernos en este desvelo,\nmira cómo el azar nos unió desde el cielo.',
+    },
+    {
+      name: 'Estribillo 2',
+      measuresCount: 8,
+      chords: 'F A Dm D# F A# A#m / F Am Dm C A# A#',
+      lyrics:
+        'Que el destino detenga este instante sagrado,\nque no muera el amor que tenemos guardado.\nTodavía no llega el perfecto final,',
+    },
+    {
+      name: 'Solo de Guitarra y Synth',
+      measuresCount: 8,
+      chords: 'F A Dm D# F A# A#m (x2)',
+      lyrics: '(instrumental)',
+    },
+    {
+      name: 'Estribillo Final',
+      measuresCount: 8,
+      chords: 'F A Dm D# F A# A#m / F Am Dm C A# A#',
+      lyrics:
+        'Que el destino detenga este instante sagrado,\nque no muera el amor que tenemos guardado.\nTodavía no llega el perfecto final,\nno apaguemos la luz de este amor inmortal.',
+    },
+    {
+      name: 'Outro',
+      measuresCount: 4,
+      chords: 'F A Dm A#',
+      lyrics: 'Todavía no...\nTodavía no...\nAún no.',
+    },
+    {
+      name: 'Final',
+      measuresCount: 4,
+      chords: 'F D# F D# F',
+      lyrics: '(instrumental)',
+    },
+  ],
+},
+
+{
+  id: 'irresponsables',
+  title: 'Irresponsables',
+  artist: 'Babasónicos',
+  bpm: 94,
+  timeSignature: 4,
+  sections: [
+    {
+      name: 'Preparación',
+      measuresCount: 2,
+      chords: '',
+      lyrics: '(silencio)',
+    },
+    {
+      name: 'Intro',
+      measuresCount: 4,
+      chords: 'Em',
+      lyrics: '(instrumental)',
+    },
+    {
+      name: 'Estrofa 1',
+      measuresCount: 8,
+      chords: 'Em Am D C Am B',
+      lyrics:
+        'Somos culpables de este amor escandaloso\nQue el fuego mismo de pasión alimentó\nQue, en el remanso de la noche impostergable\nNos avergüenza seguir sintiéndolo',
+    },
+    {
+      name: 'Estribillo 1',
+      measuresCount: 12,
+      chords: 'Em C D Em D G Am B C Am B',
+      lyrics:
+        'Poco a poco fuimos volviéndonos locos\nY ese vapor de nuestro amor nos embriagó con su licor\nY culpa al carnaval interminable nos hizo confundir, irresponsables',
+    },
+    {
+      name: 'Estrofa 2',
+      measuresCount: 8,
+      chords: 'Em Am D C Am B',
+      lyrics:
+        'Si fuimos carne de la intriga casquivana\nQue la imprudencia del rumor hoy desató\nQue, descubiertos por la luz de la mañana\nNos castigaron la desidia y el dolor',
+    },
+    {
+      name: 'Solo de Guitarra',
+      measuresCount: 8,
+      chords: 'Em Am D C Am B',
+      lyrics: '(solo instrumental)',
+    },
+    {
+      name: 'Estribillo 2',
+      measuresCount: 12,
+      chords: 'Em C D Em D G Am B C Am B',
+      lyrics:
+        'Poco a poco fuimos volviéndonos locos\nY ese vapor de nuestro amor nos embriagó con su licor\nY culpa al carnaval interminable nos hizo confundir, irresponsables',
+    },
+    {
+      name: 'Estribillo Final',
+      measuresCount: 12,
+      chords: 'Em C D Em D G Am B C Am B',
+      lyrics:
+        'Poco a poco fuimos volviéndonos locos\nY ese vapor de nuestro amor nos embriagó con su licor\nY culpa al carnaval interminable nos hizo confundir, irresponsables',
+    },
+    {
+      name: 'Outro',
+      measuresCount: 4,
+      chords: 'Em',
+      lyrics: '(final)',
+    },
+  ],
+},
 
   {
     id: 'mujer-estrella',
