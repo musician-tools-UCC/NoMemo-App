@@ -548,36 +548,36 @@ export const SONGS: Song[] = [
     {
       name: 'Intro',
       measuresCount: 8,
-      chords: 'Dm7 Am7 Csus4 / Dm7 Am7 G#m Gm7 C7',
+      chords: 'Dm7 Am7 G#m Gm7 C7',
       lyrics: '(instrumental)',
     },
     {
       name: 'Verso 1 (1/4)',
       measuresCount: 4,
-      chords: 'Dm7 Am7 C7 Dm7 Am7',
-      lyrics: 'Dime para vos quién soy\nUn chiste mal contado y ahora',
+      chords: 'Dm7 Am7 Gm7 C7',
+      lyrics: 'Dime para vos quién soy\nUn chiste mal contado y...',
     },
     {
       name: 'Verso 1 (2/4)',
       measuresCount: 4,
-      chords: 'G#m Gm7 C7 Dm7',
-      lyrics: 'Volando pasando las horas\nContigo soñando drogado voy',
+      chords: 'Dm7 Am7 Gm7 C7',
+      lyrics: 'Ahora Volando pasando las horas\nContigo soñando drogado voy',
     },
     {
       name: 'Verso 1 (3/4)',
       measuresCount: 4,
-      chords: 'Am7 Gm7 C7 Dm7',
+      chords: 'Dm7 Am7 Gm7 C7',
       lyrics: 'Quisiera ver cuánto tiempo me queda\nPara descubrir mi corazón',
     },
     {
       name: 'Verso 1 (4/4)',
       measuresCount: 4,
-      chords: 'Am7 Gm7 C7',
+      chords: 'Dm7 Am7 Gm7 C7',
       lyrics: 'Está dolido, arrepentido\nSolo quiero volver a sentirte otra vez',
     },
     {
       name: 'Pre-Coro',
-      measuresCount: 4,
+      measuresCount: 6,
       chords: 'Am7 G#m Gm7 C7 Fmaj7',
       lyrics: '(transición)',
     },
@@ -634,7 +634,7 @@ export const SONGS: Song[] = [
     {
       name: 'Puente (2/2)',
       measuresCount: 4,
-      chords: 'C7 Dm7 Am7 E7',
+      chords: 'Dm7 Am7 E7',
       lyrics: 'Extrañame, abrazame\nY besame, mi amor',
     },
     {
