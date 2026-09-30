@@ -552,18 +552,28 @@ export const SONGS: Song[] = [
       lyrics: '(instrumental)',
     },
     {
-      name: 'Verso 1 (1/2)',
-      measuresCount: 8,
-      chords: 'Dm7 Am7 C7 Dm7 Am7 G#m Gm7 C7 Dm7',
-      lyrics:
-        'Dime para vos quién soy\nUn chiste mal contado y ahora\nVolando pasando las horas\nContigo soñando drogado voy',
+      name: 'Verso 1 (1/4)',
+      measuresCount: 4,
+      chords: 'Dm7 Am7 C7 Dm7 Am7',
+      lyrics: 'Dime para vos quién soy\nUn chiste mal contado y ahora',
     },
     {
-      name: 'Verso 1 (2/2)',
-      measuresCount: 8,
-      chords: 'Am7 Gm7 C7 Dm7 Am7 Gm7 C7',
-      lyrics:
-        'Quisiera ver cuánto tiempo me queda\nPara descubrir mi corazón\nEstá dolido, arrepentido\nSolo quiero volver a sentirte otra vez',
+      name: 'Verso 1 (2/4)',
+      measuresCount: 4,
+      chords: 'G#m Gm7 C7 Dm7',
+      lyrics: 'Volando pasando las horas\nContigo soñando drogado voy',
+    },
+    {
+      name: 'Verso 1 (3/4)',
+      measuresCount: 4,
+      chords: 'Am7 Gm7 C7 Dm7',
+      lyrics: 'Quisiera ver cuánto tiempo me queda\nPara descubrir mi corazón',
+    },
+    {
+      name: 'Verso 1 (4/4)',
+      measuresCount: 4,
+      chords: 'Am7 Gm7 C7',
+      lyrics: 'Está dolido, arrepentido\nSolo quiero volver a sentirte otra vez',
     },
     {
       name: 'Pre-Coro',
@@ -572,18 +582,28 @@ export const SONGS: Song[] = [
       lyrics: '(transición)',
     },
     {
-      name: 'Estribillo (1/2)',
-      measuresCount: 8,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7 Am7 G#m Gm7 C7 Fmaj7',
-      lyrics:
-        'Y ahora decime qué somos los dos\nInfinitas noches buscandote, perdiendo la voz',
+      name: 'Estribillo (1/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: 'Y ahora decime qué somos los dos',
     },
     {
-      name: 'Estribillo (2/2)',
-      measuresCount: 8,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
-      lyrics:
-        'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada\nDecime qué somos los dos...',
+      name: 'Estribillo (2/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: 'Infinitas noches buscandote, perdiendo la voz',
+    },
+    {
+      name: 'Estribillo (3/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm',
+      lyrics: 'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada',
+    },
+    {
+      name: 'Estribillo (4/4)',
+      measuresCount: 4,
+      chords: 'Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
+      lyrics: 'Decime qué somos los dos...',
     },
     {
       name: 'Solo de Guitarra',
@@ -606,25 +626,40 @@ export const SONGS: Song[] = [
         'Qué triste de pensar que todo va a pasar\nQué triste de pensar que nada va a durar\nAl fin entendí qué es la felicidad\nUn solo momento, no la eternidad',
     },
     {
-      name: 'Puente',
-      measuresCount: 8,
-      chords: 'Dm7 Am7 G#m Gm7 C7 Dm7 Am7 E7',
-      lyrics:
-        'Perdóname, te juro que\nQuisiera ver todo lo que está mal de mí\nExtrañame, abrazame\nY besame, mi amor',
+      name: 'Puente (1/2)',
+      measuresCount: 4,
+      chords: 'Dm7 Am7 G#m Gm7',
+      lyrics: 'Perdóname, te juro que\nQuisiera ver todo lo que está mal de mí',
     },
     {
-      name: 'Estribillo Final (1/2)',
-      measuresCount: 8,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7 Am7 G#m Gm7 C7 Fmaj7',
-      lyrics:
-        'Y ahora decime qué somos los dos\nInfinitas noches buscandote, perdiendo la voz',
+      name: 'Puente (2/2)',
+      measuresCount: 4,
+      chords: 'C7 Dm7 Am7 E7',
+      lyrics: 'Extrañame, abrazame\nY besame, mi amor',
     },
     {
-      name: 'Estribillo Final (2/2)',
-      measuresCount: 8,
-      chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
-      lyrics:
-        'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada\nDecime qué somos los dos...',
+      name: 'Estribillo Final (1/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: 'Y ahora decime qué somos los dos',
+    },
+    {
+      name: 'Estribillo Final (2/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7',
+      lyrics: 'Infinitas noches buscandote, perdiendo la voz',
+    },
+    {
+      name: 'Estribillo Final (3/4)',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm',
+      lyrics: 'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada',
+    },
+    {
+      name: 'Estribillo Final (4/4)',
+      measuresCount: 4,
+      chords: 'Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
+      lyrics: 'Decime qué somos los dos...',
     },
     {
       name: 'Solo Final',
