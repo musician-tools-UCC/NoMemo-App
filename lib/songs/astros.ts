@@ -15,8 +15,8 @@ export const song: Song = {
     },
     {
       name: 'Intro',
-      measuresCount: 8,
-      chords: 'Am C G F',
+      measuresCount: 16,
+      chords: 'Am G F',
       lyrics: '(instrumental)',
     },
     {
