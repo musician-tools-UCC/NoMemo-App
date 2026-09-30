@@ -6,6 +6,12 @@ import type { Song } from './songs'
 import { totalMeasures } from './songs'
 import { createClickEngine, type ClickEngine, type SoundId } from './metronome-sounds'
 
+// Precargamos Tone.js apenas carga la página (no cuando el usuario toca
+// Play), para que en iOS el desbloqueo de audio ocurra pegado al toque del
+// usuario sin ninguna espera de red de por medio.
+const tonePreload: Promise<typeof ToneType> | null =
+  typeof window !== 'undefined' ? import('tone') : null
+
 export interface MetronomeState {
   ready: boolean
   isPlaying: boolean
@@ -112,7 +118,10 @@ export function useMetronome(song: Song): MetronomeState {
 
   const enableAudio = useCallback(async () => {
     if (toneRef.current) return
-    const Tone = await import('tone')
+    // Al estar precargado desde el inicio de la página, esto ya está
+    // resuelto (o casi) cuando el usuario toca el botón — sin espera de red
+    // interpuesta entre el toque y el desbloqueo de audio.
+    const Tone = tonePreload ? await tonePreload : await import('tone')
     await Tone.start()
 
     const volumeNode = new Tone.Volume(Tone.gainToDb(0.8)).toDestination()
