@@ -20,13 +20,13 @@ export const song: Song = {
     },
     {
       name: 'Verso 1 (1/2)',
-      measuresCount: 4,
+      measuresCount: 8,
       chords: '',
       lyrics: 'Esto no estaba para nada en mis planes \n Y es evidente que en los tuyos \n Tampoco estaba yo',
     },
     {
       name: 'Verso 1 (2/2)',
-      measuresCount: 4,
+      measuresCount: 8 ,
       chords: '',
       lyrics: 'Puede que no pueda \n Puede que no pueda esperar \n Una semana para ver si venís o no',
     },
@@ -46,7 +46,7 @@ export const song: Song = {
       name: 'Post-Estribillo',
       measuresCount: 4,
       chords: '',
-      lyrics: 'Me estoy volviendo loco \n Re loco',
+      lyrics: 'Me estoy volviendo loco \n Re loco \n',
     },
     {
       name: 'Re-Intro / Interludio',
