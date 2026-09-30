@@ -30,13 +30,13 @@ export const song: Song = {
       name: 'Estrofa 1',
       measuresCount: 8,
       chords: 'Em Am D C Am B7',
-      lyrics:'Que en el remanso de la noche impostergable\nNos avergüenza seguir sintiéndolo',
+      lyrics:'Que en el remanso de la noche impostergable \n Nos avergüenza seguir sintiéndolo',
     },
     {
       name: 'Estribillo (1/2)',
       measuresCount: 8,
       chords: 'Em C D Em D G Am B7 C Am B7',
-      lyrics:'Poco a poco fuimos volviéndonos locos\nY ese vapor de nuestro amor ',
+      lyrics:'Poco a poco fuimos volviéndonos locos \n Y ese vapor de nuestro amor ',
     },
     {
       name: 'Estribillo (2/2)',
@@ -91,7 +91,7 @@ export const song: Song = {
     },
     {
       name: 'Outro',
-      measuresCount: 8,
+      measuresCount: 2,
       chords: 'Em',
       lyrics: '(final)',
     },
