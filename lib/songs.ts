@@ -541,7 +541,7 @@ export const SONGS: Song[] = [
   sections: [
     {
       name: 'Preparación',
-      measuresCount: 2,
+      measuresCount: 4,
       chords: '',
       lyrics: '(silencio)',
     },
