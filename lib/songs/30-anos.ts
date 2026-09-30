@@ -4,7 +4,7 @@ export const song: Song = {
   id: '30-anos',
   title: '30 Años',
   artist: 'Conociendo Rusia',
-  bpm: 127,
+  bpm: 135,
   timeSignature: 4,
   sections: [
     {
@@ -15,7 +15,7 @@ export const song: Song = {
     },
     {
       name: 'Intro',
-      measuresCount: 4,
+      measuresCount: 8,
       chords: 'Em',
       lyrics: '(instrumental)',
     },
