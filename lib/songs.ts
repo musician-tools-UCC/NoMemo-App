@@ -18,15 +18,15 @@ import { song as mujerEstrella } from './songs/mujer-estrella'
 export type { Section, Song }
 
 export const SONGS: Song[] = [
-  kilometros100k,
+  irresponsables,
   treintaAnos,
   comoQueman,
+  kilometros100k,
   quieroVerteDeNafta,
-  cuchilloGuantanamera,
   queSomos,
+  cuchilloGuantanamera,
   astros,
   instanteSagrado,
-  irresponsables,
   mujerEstrella,
 ]
 
