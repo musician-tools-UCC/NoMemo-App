@@ -35,13 +35,13 @@ export const song: Song = {
     {
       name: 'Estribillo (1/2)',
       measuresCount: 8,
-      chords: 'Em C D Em D G Am B7 C Am B7',
+      chords: 'Em C D Em D',
       lyrics:'Poco a poco fuimos volviéndonos locos \n Y ese vapor de nuestro amor ',
     },
     {
       name: 'Estribillo (2/2)',
       measuresCount: 12,
-      chords: 'Em C D Em D G Am B7 C Am B7',
+      chords: 'G Am B7 C Am B7',
       lyrics:'nos embriagó con su licor\nY culpa al carnaval interminable nos hizo confundir, irresponsables',
     },
     {
@@ -57,16 +57,16 @@ export const song: Song = {
       lyrics:'Que descubiertos por la luz de la mañana\nNos castigaron la desidia y el dolor',
     },
 
-    {
+   {
       name: 'Estribillo (1/2)',
       measuresCount: 8,
-      chords: 'Em C D Em D G Am B7 C Am B7',
-      lyrics:'Poco a poco fuimos volviéndonos locos\nY ese vapor de nuestro amor ',
+      chords: 'Em C D Em D',
+      lyrics:'Poco a poco fuimos volviéndonos locos \n Y ese vapor de nuestro amor ',
     },
     {
       name: 'Estribillo (2/2)',
       measuresCount: 12,
-      chords: 'Em C D Em D G Am B7 C Am B7',
+      chords: 'G Am B7 C Am B7',
       lyrics:'nos embriagó con su licor\nY culpa al carnaval interminable nos hizo confundir, irresponsables',
     },
 
@@ -80,13 +80,13 @@ export const song: Song = {
     {
       name: 'Estribillo (1/2)',
       measuresCount: 8,
-      chords: 'Em C D Em D G Am B7 C Am B7',
-      lyrics:'Poco a poco fuimos volviéndonos locos\nY ese vapor de nuestro amor ',
+      chords: 'Em C D Em D',
+      lyrics:'Poco a poco fuimos volviéndonos locos \n Y ese vapor de nuestro amor ',
     },
     {
       name: 'Estribillo (2/2)',
       measuresCount: 12,
-      chords: 'Em C D Em D G Am B7 C Am B7',
+      chords: 'G Am B7 C Am B7',
       lyrics:'nos embriagó con su licor\nY culpa al carnaval interminable nos hizo confundir, irresponsables',
     },
     {
