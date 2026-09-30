@@ -23,13 +23,13 @@ export const song: Song = {
       name: 'Verso 1 (1/4)',
       measuresCount: 4,
       chords: 'Am C G F E',
-      lyrics: 'Más que tus soles, quieren tu espanto \n Dale tus penas para su canto',
+      lyrics: 'Más de un esclavo vive en sus tierras \n Quieren tu savia cuando te tengan',
     },
     {
       name: 'Verso 1 (2/4)',
       measuresCount: 4,
       chords: 'Am C G F E',
-      lyrics: 'Más de un esclavo vive en sus tierras \n Quieren tu savia cuando te tengan',
+      lyrics: 'Más que tus soles, quieren tu espanto \n Dale tus penas para su canto',
     },
     {
       name: 'Verso 1 (3/4)',
