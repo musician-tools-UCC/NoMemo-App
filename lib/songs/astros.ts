@@ -45,13 +45,13 @@ export const song: Song = {
     },
     {
       name: 'Estribillo 1',
-      measuresCount: 8,
+      measuresCount: 12,
       chords: 'Am C G F E',
       lyrics: 'Bailaré, bailarás, bailará otra vez\n Que los astros te van a ver \n Que un buen trago no viene mal \n Cuando pega la vida con tanta sed',
     },
     {
       name: 'Interludio',
-      measuresCount: 8,
+      measuresCount: 4,
       chords: 'Am C G F',
       lyrics: '(instrumental)',
     },
