@@ -1,0 +1,2 @@
+$ next dev
+[ELIFECYCLE] Command failed with signal SIGHUP.
