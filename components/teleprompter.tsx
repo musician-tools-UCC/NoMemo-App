@@ -76,12 +76,11 @@ export function Teleprompter() {
         {activeSection && (
           <ActiveSection
             section={activeSection}
-            nextSection={nextSection}
             measureInSection={m.measureInSection}
             isPlaying={m.isPlaying}
-            beatsPerMeasure={song.timeSignature}
+            beatsPerMeasure={m.beatsPerMeasure}
             activeBeat={m.beatInMeasure}
-          />
+            />
         )}
 
         {/* Espaciador */}
@@ -123,12 +122,12 @@ export function Teleprompter() {
                 {song.artist} · {song.bpm} BPM · {song.timeSignature}/4
               </p>
             </div>
-            <BeatIndicator
-              beatsPerMeasure={song.timeSignature}
-              activeBeat={m.beatInMeasure}
-              isPlaying={m.isPlaying}
-            />
-          </div>
+                <BeatIndicator
+                  beatsPerMeasure={m.beatsPerMeasure}
+                   activeBeat={m.beatInMeasure}
+                  isPlaying={m.isPlaying}
+                  />
+                </div>
 
           <SoundSelector value={m.soundId} onChange={m.setSound} />
 

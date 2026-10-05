@@ -43,6 +43,15 @@ export const song: Song = {
       chords: 'Dm7 Am7 Gm7 C7',
       lyrics: 'Está dolido, arrepentido\nSolo quiero volver a sentirte otra vez',
     },
+
+    {
+      name: 'Quiebre (2/4)',
+      measuresCount: 4,
+      timeSignature: 2,   // <- esta sección se cuenta en 2/4
+      chords: '...',
+      lyrics: '...',
+    },
+
     {
       name: 'Pre-Coro',
       measuresCount: 6,

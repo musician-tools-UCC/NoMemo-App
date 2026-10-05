@@ -6,9 +6,6 @@ import type { Song } from './songs'
 import { totalMeasures } from './songs'
 import { createClickEngine, type ClickEngine, type SoundId } from './metronome-sounds'
 
-// Precargamos Tone.js apenas carga la página (no cuando el usuario toca
-// Play), para que en iOS el desbloqueo de audio ocurra pegado al toque del
-// usuario sin ninguna espera de red de por medio.
 const tonePreload: Promise<typeof ToneType> | null =
   typeof window !== 'undefined' ? import('tone') : null
 
@@ -16,6 +13,9 @@ export interface MetronomeState {
   ready: boolean
   isPlaying: boolean
   beatInMeasure: number
+  /** Beats por compás de la sección que está sonando ahora mismo (puede
+   * variar de una sección a otra si alguna tiene su propio timeSignature). */
+  beatsPerMeasure: number
   sectionIndex: number
   measureInSection: number
   currentMeasure: number
@@ -42,36 +42,78 @@ interface Position {
   measureInSection: number
   beatInMeasure: number
   measureIndex: number
+  beatsPerMeasure: number
+}
+
+function sectionBpb(song: Song, sectionIndex: number): number {
+  return song.sections[sectionIndex]?.timeSignature ?? song.timeSignature
+}
+
+// Beats totales de la canción (sumando measuresCount * su propio bpb por
+// sección) — reemplaza al viejo "total * bpb constante" para soportar
+// compases mixtos.
+function totalBeatsForSong(song: Song): number {
+  let total = 0
+  for (const section of song.sections) {
+    total += section.measuresCount * (section.timeSignature ?? song.timeSignature)
+  }
+  return total
 }
 
 function positionFromBeat(song: Song, globalBeat: number): Position {
-  const bpb = song.timeSignature
-  const total = totalMeasures(song)
-  const loopBeats = total * bpb
+  const loopBeats = totalBeatsForSong(song)
   const effective = ((globalBeat % loopBeats) + loopBeats) % loopBeats
-  const measureIndex = Math.floor(effective / bpb)
-  const beatInMeasure = effective % bpb
 
-  let cursor = 0
+  let cursorBeats = 0
+  let cursorMeasures = 0
   for (let i = 0; i < song.sections.length; i++) {
-    const count = song.sections[i].measuresCount
-    if (measureIndex < cursor + count) {
+    const bpb = sectionBpb(song, i)
+    const sectionBeats = song.sections[i].measuresCount * bpb
+    if (effective < cursorBeats + sectionBeats) {
+      const beatsIntoSection = effective - cursorBeats
       return {
         sectionIndex: i,
-        measureInSection: measureIndex - cursor + 1,
-        beatInMeasure,
-        measureIndex,
+        measureInSection: Math.floor(beatsIntoSection / bpb) + 1,
+        beatInMeasure: beatsIntoSection % bpb,
+        measureIndex: cursorMeasures + Math.floor(beatsIntoSection / bpb),
+        beatsPerMeasure: bpb,
       }
     }
-    cursor += count
+    cursorBeats += sectionBeats
+    cursorMeasures += song.sections[i].measuresCount
   }
-  return { sectionIndex: 0, measureInSection: 1, beatInMeasure, measureIndex: 0 }
+  return {
+    sectionIndex: 0,
+    measureInSection: 1,
+    beatInMeasure: 0,
+    measureIndex: 0,
+    beatsPerMeasure: sectionBpb(song, 0),
+  }
+}
+
+// Convierte un número de compás global (0-based) al beat global que le
+// corresponde, respetando que cada sección puede tener su propio bpb.
+function beatForMeasureIndex(song: Song, targetMeasureIndex: number): number {
+  let cursorMeasures = 0
+  let cursorBeats = 0
+  for (let i = 0; i < song.sections.length; i++) {
+    const bpb = sectionBpb(song, i)
+    const count = song.sections[i].measuresCount
+    if (targetMeasureIndex < cursorMeasures + count) {
+      const measureOffset = targetMeasureIndex - cursorMeasures
+      return cursorBeats + measureOffset * bpb
+    }
+    cursorMeasures += count
+    cursorBeats += count * bpb
+  }
+  return cursorBeats
 }
 
 export function useMetronome(song: Song): MetronomeState {
   const [ready, setReady] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [beatInMeasure, setBeatInMeasure] = useState(-1)
+  const [beatsPerMeasure, setBeatsPerMeasure] = useState(song.timeSignature)
   const [sectionIndex, setSectionIndex] = useState(0)
   const [measureInSection, setMeasureInSection] = useState(1)
   const [currentMeasure, setCurrentMeasure] = useState(0)
@@ -114,13 +156,11 @@ export function useMetronome(song: Song): MetronomeState {
     setSectionIndex(0)
     setMeasureInSection(1)
     setCurrentMeasure(0)
+    setBeatsPerMeasure(sectionBpb(songRef.current, 0))
   }, [])
 
   const enableAudio = useCallback(async () => {
     if (toneRef.current) return
-    // Al estar precargado desde el inicio de la página, esto ya está
-    // resuelto (o casi) cuando el usuario toca el botón — sin espera de red
-    // interpuesta entre el toque y el desbloqueo de audio.
     const Tone = tonePreload ? await tonePreload : await import('tone')
     await Tone.start()
 
@@ -132,26 +172,23 @@ export function useMetronome(song: Song): MetronomeState {
 
     const id = transport.scheduleRepeat((time) => {
       const currentSong = songRef.current
-      const bpb = currentSong.timeSignature
-      const total = totalMeasures(currentSong)
-      const loopBeats = total * bpb
+      const loopBeats = totalBeatsForSong(currentSong)
       const globalBeat = beatCountRef.current
 
       if (globalBeat >= loopBeats) return
 
-      const beat = globalBeat % bpb
+      const pos = positionFromBeat(currentSong, globalBeat)
 
       if (!mutedRef.current) {
-        engineRef.current?.trigger(time, beat === 0)
+        engineRef.current?.trigger(time, pos.beatInMeasure === 0)
       }
 
-      const pos = positionFromBeat(currentSong, globalBeat)
       const isLastBeat = globalBeat + 1 >= loopBeats
-
       const visualOffset = bluetoothModeRef.current ? latencyMsRef.current / 1000 : 0
 
       Tone.getDraw().schedule(() => {
         setBeatInMeasure(pos.beatInMeasure)
+        setBeatsPerMeasure(pos.beatsPerMeasure)
         setSectionIndex(pos.sectionIndex)
         setMeasureInSection(pos.measureInSection)
         setCurrentMeasure(pos.measureIndex)
@@ -199,18 +236,20 @@ export function useMetronome(song: Song): MetronomeState {
     const Tone = toneRef.current
     if (!Tone) return
     const currentSong = songRef.current
-    const bpb = currentSong.timeSignature
     const total = totalMeasures(currentSong)
     const clamped = Math.max(0, Math.min(total - 1, Math.round(globalMeasureIndex)))
-    const targetBeat = clamped * bpb
+    const targetBeat = beatForMeasureIndex(currentSong, clamped)
 
     beatCountRef.current = targetBeat
 
     const transport = Tone.getTransport()
-    transport.position = `${clamped}:0:0`
+    // La duración de un tiempo (negra) no cambia con el compás, solo con el
+    // BPM — así que saltar por segundos funciona igual para 4/4 que 2/4.
+    transport.seconds = targetBeat * (60 / currentSong.bpm)
 
     const pos = positionFromBeat(currentSong, targetBeat)
     setBeatInMeasure(pos.beatInMeasure)
+    setBeatsPerMeasure(pos.beatsPerMeasure)
     setSectionIndex(pos.sectionIndex)
     setMeasureInSection(pos.measureInSection)
     setCurrentMeasure(pos.measureIndex)
@@ -221,7 +260,7 @@ export function useMetronome(song: Song): MetronomeState {
     if (!Tone) return
     const transport = Tone.getTransport()
     transport.stop()
-    transport.position = 0
+    transport.seconds = 0
     transport.bpm.value = song.bpm
     resetToStart()
     setIsPlaying(false)
@@ -254,7 +293,7 @@ export function useMetronome(song: Song): MetronomeState {
     if (!Tone) return
     const transport = Tone.getTransport()
     transport.stop()
-    transport.position = 0
+    transport.seconds = 0
     resetToStart()
     setIsPlaying(false)
   }, [resetToStart])
@@ -264,7 +303,7 @@ export function useMetronome(song: Song): MetronomeState {
     if (!Tone) return
     const transport = Tone.getTransport()
     transport.stop()
-    transport.position = 0
+    transport.seconds = 0
     resetToStart()
     transport.start()
     setIsPlaying(true)
@@ -289,6 +328,7 @@ export function useMetronome(song: Song): MetronomeState {
     ready,
     isPlaying,
     beatInMeasure,
+    beatsPerMeasure,
     sectionIndex,
     measureInSection,
     currentMeasure,
