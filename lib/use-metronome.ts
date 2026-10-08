@@ -50,8 +50,7 @@ function sectionBpb(song: Song, sectionIndex: number): number {
 }
 
 // Beats totales de la canción (sumando measuresCount * su propio bpb por
-// sección) — reemplaza al viejo "total * bpb constante" para soportar
-// compases mixtos.
+// sección) para soportar compases mixtos.
 function totalBeatsForSong(song: Song): number {
   let total = 0
   for (const section of song.sections) {
@@ -128,12 +127,15 @@ export function useMetronome(song: Song): MetronomeState {
   const volumeNodeRef = useRef<ToneType.Volume | null>(null)
   const eventIdRef = useRef<number | null>(null)
   const beatCountRef = useRef(0)
+  const wakeLockRef = useRef<any>(null)
+  const stateListenerCleanupRef = useRef<(() => void) | null>(null)
 
   const songRef = useRef(song)
   const mutedRef = useRef(muted)
   const soundIdRef = useRef(soundId)
   const bluetoothModeRef = useRef(bluetoothMode)
   const latencyMsRef = useRef(latencyMs)
+  const isPlayingRef = useRef(isPlaying)
   useEffect(() => {
     songRef.current = song
   }, [song])
@@ -149,6 +151,9 @@ export function useMetronome(song: Song): MetronomeState {
   useEffect(() => {
     latencyMsRef.current = latencyMs
   }, [latencyMs])
+  useEffect(() => {
+    isPlayingRef.current = isPlaying
+  }, [isPlaying])
 
   const resetToStart = useCallback(() => {
     beatCountRef.current = 0
@@ -157,6 +162,43 @@ export function useMetronome(song: Song): MetronomeState {
     setMeasureInSection(1)
     setCurrentMeasure(0)
     setBeatsPerMeasure(sectionBpb(songRef.current, 0))
+  }, [])
+
+  // Mantiene la pantalla encendida mientras suena (iOS suspende el audio
+  // de la página cuando la pantalla se bloquea).
+  const acquireWakeLock = useCallback(async () => {
+    try {
+      const wakeLock = (navigator as any).wakeLock
+      if (!wakeLock || wakeLockRef.current) return
+      const sentinel = await wakeLock.request('screen')
+      wakeLockRef.current = sentinel
+      sentinel.addEventListener('release', () => {
+        wakeLockRef.current = null
+      })
+    } catch {
+      // No soportado o denegado: no es crítico, la app sigue funcionando.
+    }
+  }, [])
+
+  const releaseWakeLock = useCallback(() => {
+    try {
+      wakeLockRef.current?.release()
+    } catch {
+      // ignorar
+    }
+    wakeLockRef.current = null
+  }, [])
+
+  // Reactiva el AudioContext si iOS lo suspendió por inactividad o por
+  // bloqueo de pantalla. Tone.start() es seguro de llamar varias veces.
+  const ensureAudioRunning = useCallback(async () => {
+    const Tone = toneRef.current
+    if (!Tone) return
+    try {
+      await Tone.start()
+    } catch {
+      // Si falla, el estado del contexto lo va a reflejar y se maneja abajo.
+    }
   }, [])
 
   const enableAudio = useCallback(async () => {
@@ -201,6 +243,7 @@ export function useMetronome(song: Song): MetronomeState {
           transport.pause()
           resetToStart()
           setIsPlaying(false)
+          releaseWakeLock()
         }, time + visualOffset)
       }
     }, '4n')
@@ -209,8 +252,43 @@ export function useMetronome(song: Song): MetronomeState {
     engineRef.current = engine
     volumeNodeRef.current = volumeNode
     eventIdRef.current = id
+
+    // Si iOS suspende el audio mientras estaba sonando, pasamos la UI a
+    // "pausado" para que el botón vuelva a mostrar Play y no quede
+    // mostrando Pausa con todo congelado.
+    const rawContext = Tone.getContext().rawContext as any
+    const handleStateChange = () => {
+      if (Tone.getContext().state !== 'running' && isPlayingRef.current) {
+        Tone.getTransport().pause()
+        setIsPlaying(false)
+        releaseWakeLock()
+      }
+    }
+    rawContext.addEventListener?.('statechange', handleStateChange)
+    stateListenerCleanupRef.current = () =>
+      rawContext.removeEventListener?.('statechange', handleStateChange)
+
     setReady(true)
-  }, [resetToStart])
+  }, [resetToStart, releaseWakeLock])
+
+  // Al volver a la app (por ejemplo después de bloquear el celular), si el
+  // audio quedó suspendido mientras figuraba "reproduciendo", lo reflejamos.
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      const Tone = toneRef.current
+      if (!Tone || document.visibilityState !== 'visible') return
+      if (Tone.getContext().state !== 'running' && isPlayingRef.current) {
+        Tone.getTransport().pause()
+        setIsPlaying(false)
+        releaseWakeLock()
+      } else if (isPlayingRef.current) {
+        // Los wake locks se liberan solos al ocultar la página: pedir de nuevo.
+        void acquireWakeLock()
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange)
+  }, [acquireWakeLock, releaseWakeLock])
 
   const setSound = useCallback((id: SoundId) => {
     const Tone = toneRef.current
@@ -264,7 +342,8 @@ export function useMetronome(song: Song): MetronomeState {
     transport.bpm.value = song.bpm
     resetToStart()
     setIsPlaying(false)
-  }, [song, resetToStart])
+    releaseWakeLock()
+  }, [song, resetToStart, releaseWakeLock])
 
   useEffect(() => {
     const Tone = toneRef.current
@@ -274,19 +353,24 @@ export function useMetronome(song: Song): MetronomeState {
     node.volume.value = Tone.gainToDb(Math.max(volume, 0.0001))
   }, [volume, muted])
 
-  const play = useCallback(() => {
+  const play = useCallback(async () => {
     const Tone = toneRef.current
     if (!Tone) return
+    // Reactiva el audio si iOS lo había suspendido (inactividad, pantalla
+    // bloqueada, etc.) ANTES de arrancar el reloj.
+    await ensureAudioRunning()
     Tone.getTransport().start()
     setIsPlaying(true)
-  }, [])
+    void acquireWakeLock()
+  }, [ensureAudioRunning, acquireWakeLock])
 
   const pause = useCallback(() => {
     const Tone = toneRef.current
     if (!Tone) return
     Tone.getTransport().pause()
     setIsPlaying(false)
-  }, [])
+    releaseWakeLock()
+  }, [releaseWakeLock])
 
   const stop = useCallback(() => {
     const Tone = toneRef.current
@@ -296,24 +380,29 @@ export function useMetronome(song: Song): MetronomeState {
     transport.seconds = 0
     resetToStart()
     setIsPlaying(false)
-  }, [resetToStart])
+    releaseWakeLock()
+  }, [resetToStart, releaseWakeLock])
 
-  const restart = useCallback(() => {
+  const restart = useCallback(async () => {
     const Tone = toneRef.current
     if (!Tone) return
+    await ensureAudioRunning()
     const transport = Tone.getTransport()
     transport.stop()
     transport.seconds = 0
     resetToStart()
     transport.start()
     setIsPlaying(true)
-  }, [resetToStart])
+    void acquireWakeLock()
+  }, [ensureAudioRunning, resetToStart, acquireWakeLock])
 
   const setVolume = useCallback((v: number) => setVolumeState(v), [])
   const toggleMute = useCallback(() => setMuted((m) => !m), [])
 
   useEffect(() => {
     return () => {
+      stateListenerCleanupRef.current?.()
+      releaseWakeLock()
       const Tone = toneRef.current
       if (!Tone) return
       const transport = Tone.getTransport()
@@ -322,7 +411,7 @@ export function useMetronome(song: Song): MetronomeState {
       engineRef.current?.dispose()
       volumeNodeRef.current?.dispose()
     }
-  }, [])
+  }, [releaseWakeLock])
 
   return {
     ready,

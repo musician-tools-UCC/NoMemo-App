@@ -23,7 +23,7 @@ export const song: Song = {
       name: 'Verso 1 (1/4)',
       measuresCount: 4,
       chords: 'Em Bm Em C F#m7 B7 Em',
-      lyrics: 'Ya tengo casi 30 años\nPor la noches no me quiero dormir',
+      lyrics: 'Ya tengo casi 30 años \n Por la noches no me quiero dormir',
     },
     {
       name: 'Verso 1 (2/4)',
@@ -158,7 +158,7 @@ export const song: Song = {
       lyrics: 'En la calle no hay porque reír\nMira la tele pare de sufrir',
     },
     {
-      name: 'Outro',
+      name: 'Final',
       measuresCount: 4,
       chords: 'Em G',
       lyrics: '(instrumental)',

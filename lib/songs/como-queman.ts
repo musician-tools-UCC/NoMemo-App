@@ -4,7 +4,7 @@ export const song: Song = {
   id: 'como-queman',
   title: 'Como Queman',
   artist: 'Un Cuento Chino',
-  bpm: 127,
+  bpm: 135,
   timeSignature: 4,
   sections: [
     {
@@ -161,7 +161,7 @@ export const song: Song = {
       name: 'Coro Final (3/5)',
       measuresCount: 4,
       chords: 'C B7',
-      lyrics: 'Esas letras que un día te canté,\nesas letras que tanto lloré...',
+      lyrics: 'Esas letras que un día te canté, \n esas letras que tanto lloré',
     },
     {
       name: 'Coro Final (4/5)',
