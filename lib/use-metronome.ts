@@ -118,7 +118,7 @@ export function useMetronome(song: Song): MetronomeState {
   const [currentMeasure, setCurrentMeasure] = useState(0)
   const [volume, setVolumeState] = useState(0.8)
   const [muted, setMuted] = useState(false)
-  const [soundId, setSoundIdState] = useState<SoundId>('classic')
+  const [soundId, setSoundIdState] = useState<SoundId>('beep')
   const [bluetoothMode, setBluetoothModeState] = useState(false)
   const [latencyMs, setLatencyMsState] = useState(140)
 

@@ -46,10 +46,10 @@ export const song: Song = {
 
     {
       name: 'Quiebre (2/4)',
-      measuresCount: 4,
+      measuresCount: 1,
       timeSignature: 2,   // <- esta sección se cuenta en 2/4
       chords: '...',
-      lyrics: '...',
+      lyrics: 'Se Viene 2/4',
     },
 
     {
