@@ -4,17 +4,17 @@ export const song: Song = {
   id: 'que-somos',
   title: 'Que Somos',
   artist: 'Un Cuento Chino',
-  bpm: 96,
+  bpm: 98,
   timeSignature: 4,
   sections: [
     {
       name: 'Preparación',
-      measuresCount: 4,
+      measuresCount: 2,
       chords: '',
       lyrics: '(silencio)',
     },
     {
-      name: 'Intro',
+      name: 'Introducción',
       measuresCount: 8,
       chords: 'Dm7 Am7 G#m Gm7 C7',
       lyrics: '(instrumental)',
@@ -43,18 +43,16 @@ export const song: Song = {
       chords: 'Dm7 Am7 Gm7 C7',
       lyrics: 'Está dolido, arrepentido\nSolo quiero volver a sentirte otra vez',
     },
-
     {
       name: 'Quiebre (2/4)',
       measuresCount: 1,
-      timeSignature: 2,   // <- esta sección se cuenta en 2/4
-      chords: '...',
-      lyrics: 'Se Viene 2/4',
+      timeSignature: 2,
+      chords: '',
+      lyrics: '(quiebre)',
     },
-
     {
       name: 'Pre-Coro',
-      measuresCount: 6,
+      measuresCount: 4,
       chords: 'Am7 G#m Gm7 C7 Fmaj7',
       lyrics: '(transición)',
     },
@@ -78,14 +76,20 @@ export const song: Song = {
     },
     {
       name: 'Estribillo (4/4)',
-      measuresCount: 4,
+      measuresCount: 2,
       chords: 'Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
       lyrics: 'Decime qué somos los dos...',
     },
     {
-      name: 'Solo de Guitarra',
-      measuresCount: 8,
-      chords: 'Eb7 Dm7 Am7 Dm7 Am7 G#m Gm7 C7',
+      name: 'Pre-Sólo',
+      measuresCount: 4,
+      chords: 'Eb7 Dm7 Am7 Dm7',
+      lyrics: '(instrumental)',
+    },
+    {
+      name: 'Sólo Guitarra',
+      measuresCount: 4,
+      chords: 'Am7 G#m Gm7 C7',
       lyrics: '(instrumental)',
     },
     {
@@ -115,31 +119,37 @@ export const song: Song = {
       lyrics: 'Extrañame, abrazame\nY besame, mi amor',
     },
     {
-      name: 'Estribillo Final (1/4)',
+      name: 'Estribillo (1/5)',
       measuresCount: 4,
       chords: 'Am7 G#m Gm7 C7 Fmaj7',
       lyrics: 'Y ahora decime qué somos los dos',
     },
     {
-      name: 'Estribillo Final (2/4)',
+      name: 'Estribillo (2/5)',
       measuresCount: 4,
       chords: 'Am7 G#m Gm7 C7 Fmaj7',
       lyrics: 'Infinitas noches buscandote, perdiendo la voz',
     },
     {
-      name: 'Estribillo Final (3/4)',
+      name: 'Estribillo (3/5)',
       measuresCount: 4,
       chords: 'Am7 G#m Gm7 C7 Fmaj7 Fm',
-      lyrics: 'Quedarme contigo o quedarme sin nada\nOtra noche fría con el alma apagada',
+      lyrics: 'Quedarme contigo o quedarme sin nada',
     },
     {
-      name: 'Estribillo Final (4/4)',
+      name: 'Estribillo (4/5)',
       measuresCount: 4,
+      chords: 'Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
+      lyrics: 'Otra noche fría con el alma apagada',
+    },
+    {
+      name: 'Estribillo (5/5)',
+      measuresCount: 2,
       chords: 'Dm7 E7 Am7 Gm7 C7 Fmaj7 E7',
       lyrics: 'Decime qué somos los dos...',
     },
     {
-      name: 'Solo Final',
+      name: 'Sólo Final',
       measuresCount: 12,
       chords: 'Dm7 Am7 G#m Gm7 C7 Fmaj7',
       lyrics: '(instrumental)',
