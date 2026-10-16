@@ -25,8 +25,8 @@ export const SONGS: Song[] = [
   quieroVerteDeNafta,
   queSomos,
   cuchilloGuantanamera,
-  astros,
   instanteSagrado,
+  astros,
   mujerEstrella,
 ]
 
