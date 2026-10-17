@@ -174,32 +174,50 @@ export function Teleprompter() {
               </div>
             )}
           </div>
-
-          {/* Ruido de fondo para estabilizar el volumen en el mixer */}
-          <div className="flex flex-col gap-2 rounded-xl border border-slate-800 bg-slate-950/50 p-3">
-            <button
-              type="button"
-              onClick={() => m.setNoiseEnabled(!m.noiseEnabled)}
-              className={cn(
-                'flex items-center justify-between gap-2 text-sm font-semibold transition-colors',
-                m.noiseEnabled ? 'text-emerald-300' : 'text-slate-400',
-              )}
-            >
-              <span>
-                Ruido de fondo
-                <span className="ml-2 font-mono text-xs font-normal text-slate-500">
-                  {m.noiseDb} dB
-                </span>
-              </span>
-              <span
+{/* Ruido de fondo para estabilizar el volumen en el mixer */}
+          <div className="flex flex-col gap-3 rounded-xl border border-slate-800 bg-slate-950/50 p-3">
+            <div className="flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => m.setNoiseEnabled(!m.noiseEnabled)}
                 className={cn(
-                  'flex h-6 w-11 items-center rounded-full px-0.5 transition-colors',
-                  m.noiseEnabled ? 'justify-end bg-emerald-400' : 'justify-start bg-slate-700',
+                  'flex items-center gap-2 text-sm font-semibold transition-colors',
+                  m.noiseEnabled ? 'text-emerald-300' : 'text-slate-400',
                 )}
               >
-                <span className="h-5 w-5 rounded-full bg-slate-950" />
-              </span>
-            </button>
+                <span>
+                  Ruido de fondo
+                  <span className="ml-2 font-mono text-xs font-normal text-slate-500">
+                    {m.noiseDb} dB
+                  </span>
+                </span>
+                <span
+                  className={cn(
+                    'flex h-6 w-11 items-center rounded-full px-0.5 transition-colors',
+                    m.noiseEnabled ? 'justify-end bg-emerald-400' : 'justify-start bg-slate-700',
+                  )}
+                >
+                  <span className="h-5 w-5 rounded-full bg-slate-950" />
+                </span>
+              </button>
+
+              {/* Botón secundario para reproducir el ruido solo de forma independiente */}
+              <button
+                type="button"
+                onClick={m.toggleNoise}
+                disabled={!m.noiseEnabled}
+                className={cn(
+                  'px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-sm',
+                  !m.noiseEnabled
+                    ? 'opacity-40 cursor-not-allowed bg-slate-800 text-slate-500'
+                    : m.isNoisePlaying
+                    ? 'bg-amber-500 text-slate-950 hover:bg-amber-400'
+                    : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
+                )}
+              >
+                {m.isNoisePlaying ? '⏸ Pausar Ruido' : '▶ Play Ruido Solo'}
+              </button>
+            </div>
           </div>
 
           <SeekBar
