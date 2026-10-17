@@ -3,7 +3,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { Bluetooth } from 'lucide-react'
 import { SONGS, totalMeasures, type Song } from '@/lib/songs'
-import { NOISE_DB_MAX, NOISE_DB_MIN, useMetronome } from '@/lib/use-metronome'
+import { useMetronome } from '@/lib/use-metronome'
 import { AudioOverlay } from './audio-overlay'
 import { BeatIndicator } from './beat-indicator'
 import { TransportControls } from './transport-controls'
@@ -185,7 +185,12 @@ export function Teleprompter() {
                 m.noiseEnabled ? 'text-emerald-300' : 'text-slate-400',
               )}
             >
-              <span>Ruido de fondo</span>
+              <span>
+                Ruido de fondo
+                <span className="ml-2 font-mono text-xs font-normal text-slate-500">
+                  {m.noiseDb} dB
+                </span>
+              </span>
               <span
                 className={cn(
                   'flex h-6 w-11 items-center rounded-full px-0.5 transition-colors',
@@ -195,27 +200,6 @@ export function Teleprompter() {
                 <span className="h-5 w-5 rounded-full bg-slate-950" />
               </span>
             </button>
-
-            {m.noiseEnabled && (
-              <div className="flex flex-col gap-1.5">
-                <div className="flex items-center justify-between text-xs text-slate-400">
-                  <span>Nivel</span>
-                  <span className="font-mono text-emerald-300">{m.noiseDb} dB</span>
-                </div>
-                <input
-                  type="range"
-                  min={NOISE_DB_MIN}
-                  max={NOISE_DB_MAX}
-                  step={1}
-                  value={m.noiseDb}
-                  onChange={(e) => m.setNoiseDb(Number(e.target.value))}
-                  className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-emerald-400"
-                />
-                <p className="text-xs text-slate-500">
-                  Suena solo en Play. Subilo hasta que el clic se estabilice.
-                </p>
-              </div>
-            )}
           </div>
 
           <SeekBar
