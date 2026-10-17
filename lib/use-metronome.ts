@@ -9,6 +9,17 @@ import { createClickEngine, type ClickEngine, type SoundId } from './metronome-s
 const tonePreload: Promise<typeof ToneType> | null =
   typeof window !== 'undefined' ? import('tone') : null
 
+// Ruido de fondo: se calibra en dB (0 dB sería el máximo posible, muy fuerte).
+export const NOISE_DB_MIN = -60
+export const NOISE_DB_MAX = -20
+const NOISE_DB_DEFAULT = -36
+const NOISE_FADE_IN_S = 0.4
+const NOISE_FADE_OUT_S = 0.25
+
+function dbToGain(db: number): number {
+  return Math.pow(10, db / 20)
+}
+
 export interface MetronomeState {
   ready: boolean
   isPlaying: boolean
@@ -24,6 +35,8 @@ export interface MetronomeState {
   soundId: SoundId
   bluetoothMode: boolean
   latencyMs: number
+  noiseEnabled: boolean
+  noiseDb: number
   enableAudio: () => Promise<void>
   play: () => void
   pause: () => void
@@ -35,6 +48,8 @@ export interface MetronomeState {
   seek: (globalMeasureIndex: number) => void
   setBluetoothMode: (enabled: boolean) => void
   setLatencyMs: (ms: number) => void
+  setNoiseEnabled: (enabled: boolean) => void
+  setNoiseDb: (db: number) => void
 }
 
 interface Position {
@@ -121,10 +136,14 @@ export function useMetronome(song: Song): MetronomeState {
   const [soundId, setSoundIdState] = useState<SoundId>('beep')
   const [bluetoothMode, setBluetoothModeState] = useState(false)
   const [latencyMs, setLatencyMsState] = useState(140)
+  const [noiseEnabled, setNoiseEnabledState] = useState(true)
+  const [noiseDb, setNoiseDbState] = useState(NOISE_DB_DEFAULT)
 
   const toneRef = useRef<typeof ToneType | null>(null)
   const engineRef = useRef<ClickEngine | null>(null)
   const volumeNodeRef = useRef<ToneType.Volume | null>(null)
+  const noiseRef = useRef<ToneType.Noise | null>(null)
+  const noiseGainRef = useRef<ToneType.Gain | null>(null)
   const eventIdRef = useRef<number | null>(null)
   const beatCountRef = useRef(0)
   const wakeLockRef = useRef<any>(null)
@@ -209,6 +228,13 @@ export function useMetronome(song: Song): MetronomeState {
     const volumeNode = new Tone.Volume(Tone.gainToDb(0.8)).toDestination()
     const engine = createClickEngine(Tone, soundIdRef.current, volumeNode)
 
+    // Ruido blanco de fondo: la fuente queda siempre andando, pero con la
+    // ganancia en 0 (silencio). Solo se abre su volumen mientras está en Play,
+    // así no hay arranques ni cortes bruscos.
+    const noiseGain = new Tone.Gain(0).toDestination()
+    const noise = new Tone.Noise('white').connect(noiseGain)
+    noise.start()
+
     const transport = Tone.getTransport()
     transport.bpm.value = songRef.current.bpm
 
@@ -251,6 +277,8 @@ export function useMetronome(song: Song): MetronomeState {
     toneRef.current = Tone
     engineRef.current = engine
     volumeNodeRef.current = volumeNode
+    noiseRef.current = noise
+    noiseGainRef.current = noiseGain
     eventIdRef.current = id
 
     // Si iOS suspende el audio mientras estaba sonando, pasamos la UI a
@@ -310,6 +338,14 @@ export function useMetronome(song: Song): MetronomeState {
     setLatencyMsState(ms)
   }, [])
 
+  const setNoiseEnabled = useCallback((enabled: boolean) => {
+    setNoiseEnabledState(enabled)
+  }, [])
+
+  const setNoiseDb = useCallback((db: number) => {
+    setNoiseDbState(Math.max(NOISE_DB_MIN, Math.min(NOISE_DB_MAX, db)))
+  }, [])
+
   const seek = useCallback((globalMeasureIndex: number) => {
     const Tone = toneRef.current
     if (!Tone) return
@@ -352,6 +388,18 @@ export function useMetronome(song: Song): MetronomeState {
     node.mute = muted
     node.volume.value = Tone.gainToDb(Math.max(volume, 0.0001))
   }, [volume, muted])
+
+  // El ruido de fondo se abre solo mientras está en Play (con un fundido corto)
+  // y se cierra al pausar, parar o terminar la canción.
+  useEffect(() => {
+    const node = noiseGainRef.current
+    if (!node) return
+    const active = isPlaying && noiseEnabled && !muted
+    node.gain.rampTo(
+      active ? dbToGain(noiseDb) : 0,
+      active ? NOISE_FADE_IN_S : NOISE_FADE_OUT_S,
+    )
+  }, [ready, isPlaying, noiseEnabled, noiseDb, muted])
 
   const play = useCallback(async () => {
     const Tone = toneRef.current
@@ -410,6 +458,8 @@ export function useMetronome(song: Song): MetronomeState {
       transport.stop()
       engineRef.current?.dispose()
       volumeNodeRef.current?.dispose()
+      noiseRef.current?.dispose()
+      noiseGainRef.current?.dispose()
     }
   }, [releaseWakeLock])
 
@@ -426,6 +476,8 @@ export function useMetronome(song: Song): MetronomeState {
     soundId,
     bluetoothMode,
     latencyMs,
+    noiseEnabled,
+    noiseDb,
     enableAudio,
     play,
     pause,
@@ -437,5 +489,7 @@ export function useMetronome(song: Song): MetronomeState {
     seek,
     setBluetoothMode,
     setLatencyMs,
+    setNoiseEnabled,
+    setNoiseDb,
   }
 }

@@ -3,7 +3,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { Bluetooth } from 'lucide-react'
 import { SONGS, totalMeasures, type Song } from '@/lib/songs'
-import { useMetronome } from '@/lib/use-metronome'
+import { NOISE_DB_MAX, NOISE_DB_MIN, useMetronome } from '@/lib/use-metronome'
 import { AudioOverlay } from './audio-overlay'
 import { BeatIndicator } from './beat-indicator'
 import { TransportControls } from './transport-controls'
@@ -112,7 +112,7 @@ export function Teleprompter() {
           />
         </div>
 
-        {/* Bloque 2: título + indicador de beat + sonido + seek bar */}
+        {/* Bloque 2: título + indicador de beat + sonido + ajustes + seek bar */}
         <div className="flex flex-col gap-4 rounded-3xl border border-slate-800 bg-slate-900/95 p-4 backdrop-blur sm:p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
@@ -171,6 +171,49 @@ export function Teleprompter() {
                   onChange={(e) => m.setLatencyMs(Number(e.target.value))}
                   className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-emerald-400"
                 />
+              </div>
+            )}
+          </div>
+
+          {/* Ruido de fondo para estabilizar el volumen en el mixer */}
+          <div className="flex flex-col gap-2 rounded-xl border border-slate-800 bg-slate-950/50 p-3">
+            <button
+              type="button"
+              onClick={() => m.setNoiseEnabled(!m.noiseEnabled)}
+              className={cn(
+                'flex items-center justify-between gap-2 text-sm font-semibold transition-colors',
+                m.noiseEnabled ? 'text-emerald-300' : 'text-slate-400',
+              )}
+            >
+              <span>Ruido de fondo</span>
+              <span
+                className={cn(
+                  'flex h-6 w-11 items-center rounded-full px-0.5 transition-colors',
+                  m.noiseEnabled ? 'justify-end bg-emerald-400' : 'justify-start bg-slate-700',
+                )}
+              >
+                <span className="h-5 w-5 rounded-full bg-slate-950" />
+              </span>
+            </button>
+
+            {m.noiseEnabled && (
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span>Nivel</span>
+                  <span className="font-mono text-emerald-300">{m.noiseDb} dB</span>
+                </div>
+                <input
+                  type="range"
+                  min={NOISE_DB_MIN}
+                  max={NOISE_DB_MAX}
+                  step={1}
+                  value={m.noiseDb}
+                  onChange={(e) => m.setNoiseDb(Number(e.target.value))}
+                  className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-emerald-400"
+                />
+                <p className="text-xs text-slate-500">
+                  Suena solo en Play. Subilo hasta que el clic se estabilice.
+                </p>
               </div>
             )}
           </div>
