@@ -4,7 +4,7 @@ import type { Section, Song } from './songs/types'
 // Para agregar una nueva: 1) creá lib/songs/nombre-cancion.ts siguiendo el
 // mismo formato que las demás, 2) importala acá abajo, 3) agregala al
 // array SONGS en el orden en que la tocan en vivo.
-import { song as agradecimiento } from './songs/instante-sagrado'
+import { song as agradecimiento } from './songs/agradecimiento'
 import { song as kilometros100k } from './songs/100k-kilometros'
 import { song as treintaAnos } from './songs/30-anos'
 import { song as comoQueman } from './songs/como-queman'
