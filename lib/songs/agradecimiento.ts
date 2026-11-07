@@ -1,8 +1,8 @@
 import type { Song } from './types'
 
 export const song: Song = {
-  id: '100k-kilometros',
-  title: '100k Kilometros',
+  id: 'agradecimiento',
+  title: 'agradecimiento',
   artist: 'Un Cuento Chino',
   bpm: 165,
   timeSignature: 4,
